@@ -1,1 +1,15 @@
 // app global css in SCSS form
+
+.my-edu-menu .q-scrollarea__content {
+  width: 100%;
+}
+.bg-base-menu {
+  background-color: $base-menu;
+}
+
+.text-base-menu {
+  color: white;
+}
+.my-menu .q-item__label--caption{
+  color: #eeeeee !important;
+}

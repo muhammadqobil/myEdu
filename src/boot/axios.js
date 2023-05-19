@@ -24,7 +24,7 @@ export default ({app, router, store, Vue}) => {
           errorMessage: app.i18n.t("http.base_error")
         });
       }
-      if (!error.response.data) {
+      if (!error.response) {
         return Promise.reject({
           type: 'warning',
           errorCode: -200,
@@ -32,7 +32,7 @@ export default ({app, router, store, Vue}) => {
           errorMessage: app.i18n.t("http.base_error")
         });
       }
-      if (error.response.data.ERROR.status === 401) {
+      if (error.response.status === 401) {
         store.commit('clearUserSession');
         router.push('/login');
         return Promise.reject({
@@ -42,7 +42,9 @@ export default ({app, router, store, Vue}) => {
           errorMessage: app.i18n.t("http.session_timeout")
         });
       }
-      if (error.response.data.ERROR.status === 403) {
+      if (error.response.status === 403) {
+        store.commit('clearUserSession');
+        router.push('/login');
         return Promise.reject({
           type: 'warning',
           errorCode: error.response.data.ERROR.code,

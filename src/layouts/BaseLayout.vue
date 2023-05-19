@@ -1,59 +1,53 @@
 <template>
   <div>
-    <q-layout view="lHh Lpr lff" container style="height: calc(100vh)" class="shadow-2 rounded-borders">
-      <q-header elevated class="bg-primary">
+    <q-layout view="lHh LpR fFf" >
+      <q-header elevated class="bg-white text-primary" style="padding: 3px" >
         <q-toolbar>
-          <q-toolbar-title>Header</q-toolbar-title>
-          <q-btn flat @click="drawer = !drawer" round dense icon="menu" />
+          <q-btn dense flat round icon="menu" @click="leftDrawer = !leftDrawer"/>
+
+          <q-toolbar-title class="text-subtitle1 logo-text-style  text-uppercase">
+            <q-avatar>
+              <q-icon name="mdi-file"/>
+            </q-avatar>
+            <span>
+            {{$t('app_name')}}
+          </span>
+          </q-toolbar-title>
+
+
+<!--          <q-select-->
+<!--            v-model="language"-->
+<!--            :options="languages"-->
+<!--            option-value="code"-->
+<!--            option-label="name"-->
+<!--            :display-value="language ? language.name : 'No'"-->
+<!--            borderless-->
+<!--            transition-show="flip-up"-->
+<!--            transition-hide="flip-down"-->
+<!--          >-->
+<!--            <template v-slot:selected="props">-->
+<!--              <div class="text-primary">{{ language.name }}</div>-->
+<!--            </template>-->
+
+<!--          </q-select>-->
+          <q-btn
+            dense flat round
+            @click="$q.fullscreen.toggle()"
+            :icon="$q.fullscreen.isActive ? 'fullscreen_exit' : 'fullscreen'"
+          />
+
+          <q-btn dense flat round icon="mdi-exit-to-app" @click="logout"/>
+          <q-btn dense flat round icon="menu" @click="rightDrawer = !rightDrawer" toggle-color="red"/>
         </q-toolbar>
       </q-header>
 
-      <q-drawer
-        v-model="drawer"
-        show-if-above
-        :width="300"
-        :breakpoint="400"
-      >
-        <q-scroll-area
-          style="height: calc(100% - 150px); margin-top: 150px; border-right: 1px solid #ddd"
-          :thumb-style="thumbStyle" :bar-style="barStyle">
-          <q-expansion-item
-            default-opened
-            v-model="showOpened"
-            :label="$t('fp_captions.login')"
-            :label-lines="2"
-            :caption-lines="3"
-            expand-separator
-            icon="mdi-bank"
-            expand-icon-class="text-white"
-            class="bg-primary text-white"
-          >
-            <q-list class="q-pl-none  bg-secondary">
-              <q-item
-                to="/login"
-                clickable
-                v-ripple
-                active-class="text-white text-italic text-bold"
-              >
-                <q-item-section avatar class="q-pl-md q-pr-none">
-                  <q-icon name="mdi-file"/>
-                </q-item-section>
-                <q-item-section class="q-pl-none">test</q-item-section>
-              </q-item>
-            </q-list>
-
-          </q-expansion-item>
+      <q-drawer show-if-above v-model="leftDrawer" side="left" bordered elevated>
+        <q-scroll-area class="fit bg-primary my-edu-menu">
+          <main-menu-panel/>
         </q-scroll-area>
-
-        <q-img class="absolute-top" src="https://cdn.quasar.dev/img/material.png" style="height: 150px">
-          <div class="absolute-bottom bg-transparent">
-            <q-avatar size="56px" class="q-mb-sm">
-              <img src="https://cdn.quasar.dev/img/boy-avatar.png">
-            </q-avatar>
-            <div class="text-weight-bold">Razvan Stoenescu</div>
-            <div>@rstoenescu</div>
-          </div>
-        </q-img>
+      </q-drawer>
+      <q-drawer v-model="rightDrawer" :width="350" side="right" bordered elevated overlay>
+        <user-info-drawer/>
       </q-drawer>
 
       <q-page-container>
@@ -65,12 +59,15 @@
 
 <script>
 import {urls} from "src/utils/constants";
+import MainMenuPanel from "components/base/MainMenuPanel";
+import {mapMutations} from "vuex";
+import UserInfoDrawer from "components/base/UserInfoDrawer";
 
 export default {
   name: "BaseLayout",
+  components: {UserInfoDrawer, MainMenuPanel},
   data(){
     return{
-      drawer : false,
       showOpened: true,
       thumbStyle: {
         right: '4px',
@@ -85,10 +82,72 @@ export default {
       },
     }
   },
-  methods:{
+  computed: {
+
+    leftDrawer: {
+      get() {
+        return this.$store.state.baseLeftDrawer;
+      },
+      set(value) {
+        this.setBaseLeftDrawer(value);
+      }
+    },
+    rightDrawer: {
+      get() {
+        return this.$store.state.baseRightDrawer;
+      },
+      set(value) {
+        this.setBaseRightDrawer(value);
+      }
+    },
+    // language: {
+    //   get() {
+    //     if (!this.$i18n.locale) {
+    //       if (this.$i18n.locale = this.$store.state.user) {
+    //         this.$i18n.locale = this.$store.state.user.lang_code;
+    //       } else {
+    //         this.$i18n.locale = 'ru';
+    //       }
+    //     }
+    //     return this.$store.getters.getLocaleByCode(this.$i18n.locale);
+    //   },
+    //   set(langObj) {
+    //     this.$axios.post(urls.SET_LANG, 'lang=' + langObj.code, {headers: {'content-type': 'application/x-www-form-urlencoded'}})
+    //       .then(response => {
+    //         this.$i18n.locale = langObj.code;
+    //         this.setUserLangCode(this.$i18n.locale);
+    //         window.location.reload();
+    //       })
+    //       .catch(e => {
+    //         this.showError(e);
+    //       });
+    //   }
+    // },
+    languages: function () {
+      return this.$store.state.appLocales;
+    },
+
+
+  },
+  methods: {
+    ...mapMutations([
+      'setBaseLeftDrawer',
+      'setBaseRightDrawer',
+      'resetState',
+      'clearUser',
+      'clearUserActions',
+      'clearUserSession',
+      'setUserLangCode'
+    ]),
+
+    logout() {
+      this.confirmDialog(this.$t('fund_captions.l_confirm'), this.$t('fund_captions.l_you_really_exit'), () => {
+            this.clearUserSession();
+            this.$router.push('/login');
+      });
+    },
     getBranches(){
       this.$axios.get(urls.TEST).then(res=>{
-
       }).catch(error=>{})
     }
   },

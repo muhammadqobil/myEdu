@@ -9,6 +9,7 @@
       :columns="columns"
       :pagination.sync="pagination"
       :loading="loading"
+      :filter="filter"
       @request="refreshData"
       :selected.sync="selectedRows"
       separator="horizontal"
@@ -68,7 +69,6 @@
 
         </div>
       </template>
-
       <template v-slot:body-cell-actions="props">
         <q-td :props="props">
           <q-btn size="sm" dense color="secondary" icon="edit" @click.stop="rowEdit(props.row)" class="q-mr-xs">
@@ -124,6 +124,7 @@
 import StandartInputDialog from "components/base/StandartInputDialog";
 import StandartTable from "src/mixins/StandartTable";
 import {urls} from "src/utils/constants";
+import {mapGetters} from "vuex";
 
 export default {
   name: "AlarmGraphicWorkTypes",
@@ -197,7 +198,9 @@ export default {
     },
 
   },
-  methods: {}
+  methods: {
+    ...mapGetters(['getUser'])
+  }
 }
 </script>
 

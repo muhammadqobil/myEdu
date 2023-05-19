@@ -9,7 +9,6 @@
         pagination: this.pagination,
         filter: this.filter
       })
-      console.log('this=>', this.pagination)
     },
     methods: {
       refreshTable() {
@@ -20,8 +19,8 @@
       },
       refreshData(props) {
         this.loading = true;
-        // let allBean = Object.assign(props.pagination , props.filter)
-        this.pagedGet(this.apiUrl + this.tableFilterQuery(props.pagination) )
+        let allBean = Object.assign(props.pagination , props.filter)
+        this.pagedGet(this.apiUrl + this.tableFilterQuery(allBean))
           .then(response => {
             if (!response)
               return;

@@ -1,4 +1,4 @@
-
+import {branches} from "src/router/categories";
 const routes = [
   {
     path: '/',
@@ -14,6 +14,7 @@ const routes = [
       {path: '/login', name: 'login', component: () => import('pages/LoginPage.vue')},
     ]
   },
+  branches,
   // Always leave this as last one,
   // but you can also remove it
   {

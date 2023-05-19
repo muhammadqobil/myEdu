@@ -1,3 +1,4 @@
+import * as modulesCategories from '../../router/categories'
 export function getUser (state) {
   alert(state.user)
   return state.user
@@ -17,4 +18,19 @@ export function getPath(state){
 }
 export function getLoading (state){
   return state.loading;
+}
+export function getCurrentRouteName(state) {
+  return state.currentRouteName;
+}
+
+export function getCurrentRouteCategoryName(state) {
+  return state.currentRouteCategoryName;
+}
+
+export function getUserCategories(state) {
+  const modulesCategoriesArr = Object.keys(modulesCategories).map(key => {
+    let deepCloneMC = JSON.parse(JSON.stringify(modulesCategories[key]));
+    return deepCloneMC;
+  });
+  return modulesCategoriesArr
 }

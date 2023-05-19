@@ -23,13 +23,10 @@ export default ({app, router, store, Vue}) => {
     next();
   });
 
-  // router.afterEach((to, from) => {
-  //   // store.commit('setCurrentRouteName', to.name ? to.name : '');
-  //   // store.commit('setCurrentRouteCategoryName', to.matched[0] ? to.matched[0].name : '');
-  //   setTimeout(() => {
-  //     store.commit('setLoading', false);
-  //   }, 0)
-  // });
+  router.afterEach((to, from) => {
+    store.commit('setCurrentRouteName', to.name ? to.name : '');
+    store.commit('setCurrentRouteCategoryName', to.matched[0] ? to.matched[0].name : '');
+  });
   router.onReady(() => {
     store.commit('setLoading', true);
   });

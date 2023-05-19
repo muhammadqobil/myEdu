@@ -11,6 +11,10 @@ export default function () {
     userActions: [],
     globalError: undefined,
     path: '',
-    loading: true
+    loading: true,
+    currentRouteName: '',
+    currentRouteCategoryName: '',
+    baseLeftDrawer: true,
+    baseRightDrawer: false,
   }
 }

@@ -18,9 +18,8 @@ export default ({app , store, router , Vue}) => {
 
       },
       methods: {
-        pagedGet(url, pagination, filter, config) {
-          const p = url + this.parsePaginationQuery(pagination) + this.tableFilterQuery(filter);
-          return this.$axios.get(encodeURI(p), config);
+        pagedGet(url, config = {}) {
+          return this.$axios.get(encodeURI(url), config);
         },
         parsePaginationQuery(pagination) {
           let queryArray = [];
