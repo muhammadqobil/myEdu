@@ -39,8 +39,8 @@
             clickable
             v-ripple
             :active="getCurrentRouteName() === module.name"
-            active-class="text-white text-bold"
-            style="background: rgb(4 82 56 / 0.2)"
+            active-class="text-white text-bold shadow-2"
+            style="background: rgb(4 82 56 / 0.2);"
           >
             <q-item-section avatar class="q-pl-md q-pr-none">
               <q-icon :name="module.meta.icon"/>

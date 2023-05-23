@@ -1,10 +1,10 @@
 <template>
-  <div class="q-pa-md"><alarm-graphic-work-types/></div>
+  <div class="q-pa-md"></div>
 </template>
 
 <script>
 import {urls} from "src/utils/constants";
-import AlarmGraphicWorkTypes from "components/myEdu/AlarmGraphicWorkTypes";
+import AlarmGraphicWorkTypes from "components/myEdu/Branches";
 
 export default {
   name: "Home",

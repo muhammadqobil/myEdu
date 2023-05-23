@@ -29,29 +29,29 @@
       </template>
       <template v-slot:top="props">
         <div class="fit row items-center">
-          <q-select
-            v-model="filter.branches"
-            emit-value
-            outlined
-            map-options
-            :options="data"
-            option-value="id"
-            option-label="name"
-            :label="$t('fp_captions.l_mes')"
-            stack-label
-            transition-show="scale"
-            transition-hide="scale"
-            class="col-xs-12 col-md-2 col-lg-3 q-pl-md"
-            dense>
-            <template v-slot:append>
-              <q-icon name="close" @click.stop="filter.branches = null"
-                                                  class="cursor-pointer"/>
-            </template>
-            <template v-slot:selected-item="props">
-              <div>{{ props.opt.name}}</div>
-            </template>
+<!--          <q-select-->
+<!--            v-model="filter.branches"-->
+<!--            emit-value-->
+<!--            outlined-->
+<!--            map-options-->
+<!--            :options="data"-->
+<!--            option-value="id"-->
+<!--            option-label="name"-->
+<!--            :label="$t('fp_captions.l_mes')"-->
+<!--            stack-label-->
+<!--            transition-show="scale"-->
+<!--            transition-hide="scale"-->
+<!--            class="col-xs-12 col-md-2 col-lg-3 q-pl-md"-->
+<!--            dense>-->
+<!--            <template v-slot:append>-->
+<!--              <q-icon name="close" @click.stop="filter.branches = null"-->
+<!--                                                  class="cursor-pointer"/>-->
+<!--            </template>-->
+<!--            <template v-slot:selected-item="props">-->
+<!--              <div>{{ props.opt.name}}</div>-->
+<!--            </template>-->
 
-          </q-select>
+<!--          </q-select>-->
           <q-space/>
           <q-btn-group>
             <q-btn icon="add" class="bg-primary text-white" @click="rowAdd" dense>
@@ -68,6 +68,58 @@
           </q-btn-group>
 
         </div>
+      </template>
+      <template v-slot:body-cell-number="props">
+        <q-td :props="props">
+          <div class="row">
+            <div class="col name-column">
+              <span> {{$t('captions.l_number')}} : </span>
+              <span v-if="props.row.number"  class="text-bold">
+                {{props.row.number}}
+              </span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col name-column">
+              <span> {{$t('captions.l_name')}} : </span>
+              <span v-if="props.row.number"  class="text-bold">
+                {{props.row.name}}
+              </span>
+            </div>
+          </div>
+        </q-td>
+      </template>
+      <template v-slot:body-cell-branches="props">
+        <q-td :props="props">
+          <div class="row">
+            <div class="col name-column">
+              <span> {{$t('captions.l_name')}} : </span>
+              <span v-if="props.row.branches.name"  class="text-bold">
+                {{props.row.branches.name}}
+              </span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col name-column">
+              <span> {{$t('captions.l_phone')}} : </span>
+              <span v-if="props.row.branches.phone"  class="text-bold">
+                {{phone_format(props.row.branches.phone)}}
+              </span>
+            </div>
+          </div>
+        </q-td>
+      </template>
+      <template v-slot:body-cell-createdDate="props">
+        <q-td :props="props">
+          <div class="row">
+            <div class="col name-column">
+              <span> <q-icon name="mdi-calendar" size="xs" color="primary"/></span>
+              <span v-if="props.row.createdDate"  class="text-bold">
+                {{$dateutil.formatDate(props.row.createdDate,'DD.MM.YYYY')}}
+              </span>
+            </div>
+          </div>
+        </q-td>
       </template>
       <template v-slot:body-cell-actions="props">
         <q-td :props="props">
@@ -96,17 +148,9 @@
                  class="q-pa-md col-xs-12 col-sm-12 col-md-12 col-lg-12" dense
                  lazy-rules :rules="[val => !!val || this.$t('system.field_is_required')]">
         </q-input>
-          <q-input v-model="bean.phone" :placeholder="$t('captions.l_phone')"
-                   :label="$t('captions.l_phone')"
-                   mask="(##) ### - ## - ##"
-                   fill-mask
-                   unmasked-value
-                   class="q-pa-md col-xs-12 col-sm-12 col-md-12 col-lg-12" dense
-                   lazy-rules :rules="[val => !!val || this.$t('system.field_is_required')]">
-          </q-input>
 
-        <q-input v-model="bean.address" :placeholder="$t('captions.l_description')"
-                 :label="$t('captions.l_description')"
+        <q-input v-model="bean.number" :placeholder="$t('captions.l_number')"
+                 :label="$t('captions.l_number')"
                  class="q-pa-md col-xs-12 col-sm-12 col-md-12 col-lg-12" dense
         >
           <template v-slot:prepend="props">
@@ -127,12 +171,12 @@ import {urls} from "src/utils/constants";
 import {mapGetters} from "vuex";
 
 export default {
-  name: "AlarmGraphicWorkTypes",
+  name: "Rooms",
   components: {StandartInputDialog},
   mixins: [StandartTable],
   data() {
     return {
-      apiUrl: urls.BRANCHES,
+      apiUrl: urls.ROOMS,
       loading: false,
       rowKey: 'id',
       selectedRows: [],
@@ -156,19 +200,25 @@ export default {
           style: 'width: 1rem'
         },
         {
-          name: 'name',
-          field: row => row.name,
-          label: this.$t('captions.l_name'),
+          name: 'number',
+          field: row => row.number,
+          label: this.$t('Xona ma\'lumoti'),
           format: val => `${val}`,
+          align: 'left',
+        },
+        {
+          name: 'branches',
+          field: row => row.branches.name,
+          label: this.$t('Filial ma\'lumoti'),
           align: 'left',
           classes: 'col-1',
         },
         {
-          name: 'description',
-          field: row => row.address,
-          label: this.$t('captions.l_description'),
-          format: val => `${val}`,
+          name: 'createdDate',
+          field: row => row.createdDate,
+          label: this.$t('captions.l_created_date_tx'),
           align: 'left',
+          classes: 'col-1',
         },
         {name: 'actions', align: 'center', label: this.$t('captions.l_actions'), style: "width: 1rem"}
       ],
@@ -176,8 +226,7 @@ export default {
       beanDefault: {
         id: null,
         name: null,
-        phone: null,
-        address: null
+        number: null
       },
       bean: {},
       formDialog: false,

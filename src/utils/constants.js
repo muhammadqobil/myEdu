@@ -8,5 +8,6 @@ export const cfghttp = {
 export const urls = {
   LOGIN: "/home/login",
   BRANCHES: "/admin/branches",
-  TEST: "/home/test"
+  TEST: "/home/test",
+  ROOMS: "/admin/rooms"
 }
