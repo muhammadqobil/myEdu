@@ -21,7 +21,7 @@
       :selected-rows-label="selectedRowsText"
       @row-click="rowClick"
       class="sticky-last-column-table"
-      style="height: calc(100vh - 130px); overflow-y: auto"
+      style="height: calc(100vh - 192px); overflow-y: auto"
 
     >
       <template v-slot:no-data="props">

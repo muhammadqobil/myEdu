@@ -21,7 +21,7 @@
       :selected-rows-label="selectedRowsText"
       @row-click="rowClick"
       class="sticky-last-column-table"
-      style="height: calc(100vh - 130px); overflow-y: auto"
+      style="height: calc(100vh - 192px); overflow-y: auto"
 
     >
       <template v-slot:no-data="props">
@@ -68,6 +68,11 @@
           </q-btn-group>
 
         </div>
+      </template>
+      <template v-slot:body-cell-phone="props">
+        <q-td :props="props">
+          {{phone_format(props.row.phone)}}
+        </q-td>
       </template>
       <template v-slot:body-cell-actions="props">
         <q-td :props="props">
@@ -160,6 +165,13 @@ export default {
           field: row => row.name,
           label: this.$t('captions.l_name'),
           format: val => `${val}`,
+          align: 'left',
+          classes: 'col-1',
+        },
+        {
+          name: 'phone',
+          field: row => row.phone,
+          label: this.$t('captions.l_phone'),
           align: 'left',
           classes: 'col-1',
         },

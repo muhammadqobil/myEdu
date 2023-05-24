@@ -38,7 +38,7 @@
         />
       </div>
       <q-form @submit.prevent="onSubmit" class="q-gutter-md row">
-        <h4 class="text-bold no-margin">Create Account</h4>
+        <h4 class="text-bold no-margin">Dasturga Kirish</h4>
         <q-input
           v-model="bean.login"
           outlined
@@ -86,7 +86,7 @@
           <q-checkbox v-model="bean.remember" :label="$t('login.l_remember')" color="primary" size="xs"/>
           <q-btn flat :label="$t('login.l_forgot_password')" color="primary" size="md" no-caps />
         </div>
-        <q-btn class="button" type="submit">Sign In</q-btn>
+        <q-btn class="button" type="submit" dense>Kirish</q-btn>
       </q-form>
     </div>
     <div class="overlay-container">
@@ -98,9 +98,9 @@
           <q-btn class="button ghost" @click="signInButton">Sign UP</q-btn>
         </div>
         <div class="overlay-panel overlay-right">
-          <h4 class="text-bold no-margin">Hello, Friend!</h4>
-          <p>Enter your personal details and start journey with us</p>
-          <q-btn class="button ghost" @click="signUpButton">Sign In</q-btn>
+          <h4 class="text-bold no-margin">My Edu</h4>
+          <p>O'quv markazi monitoringi uchun web platforma</p>
+<!--          <q-btn class="button ghost" @click="signUpButton">Sign In</q-btn>-->
         </div>
       </div>
     </div>
@@ -203,8 +203,8 @@ a {
 
 .button {
   border-radius: 20px;
-  border: 1px solid #FF4B2B;
-  background-color: #FF4B2B;
+  border: 1px solid #0097A7;
+  background-color: #0097A7;
   color: #FFFFFF;
   font-size: 12px;
   font-weight: bold;
@@ -317,9 +317,9 @@ input {
 }
 
 .overlay {
-  background: #FF416C;
-  background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
-  background: linear-gradient(to right, #FF4B2B, #FF416C);
+  background: #00838F;
+  background: -webkit-linear-gradient(to right, #0097A7, #00838F);
+  background: linear-gradient(to right, #0097A7, #00838F);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 0;

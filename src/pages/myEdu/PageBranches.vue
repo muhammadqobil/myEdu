@@ -1,6 +1,7 @@
 <template>
   <q-page padding class="row items-start justify-center">
     <q-card bordered class="fit">
+      <module-header/>
       <branches class="q-pa-md"/>
     </q-card>
   </q-page>
@@ -8,9 +9,10 @@
 
 <script>
 import Branches from "components/myEdu/Branches";
+import ModuleHeader from "components/base/ModuleHeader";
 export default {
   name: "PageBranches",
-  components: {Branches}
+  components: {ModuleHeader, Branches}
 }
 </script>
 

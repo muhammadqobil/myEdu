@@ -8,7 +8,6 @@
 </template>
 
 <script>
-import Branches from "components/myEdu/Branches";
 import Rooms from "components/myEdu/Rooms";
 import ModuleHeader from "components/base/ModuleHeader";
 export default {

@@ -15,7 +15,7 @@ const modules = [
     component: () => import('pages/myEdu/PageRooms.vue'),
     meta: {
       icon: 'mdi-bank',
-      title: 'xonalar',
+      title: 'Xonalar',
       description: 'Xonalar',
     }
   }
