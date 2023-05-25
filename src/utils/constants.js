@@ -9,5 +9,7 @@ export const urls = {
   LOGIN: "/home/login",
   BRANCHES: "/admin/branches",
   TEST: "/home/test",
-  ROOMS: "/admin/rooms"
+  ROOMS: "/admin/rooms",
+  USERS: "/admin/users",
+  ROLES: "/admin/roles",
 }

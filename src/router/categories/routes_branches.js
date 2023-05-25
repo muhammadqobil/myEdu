@@ -14,9 +14,19 @@ const modules = [
     name: 'rooms',
     component: () => import('pages/myEdu/PageRooms.vue'),
     meta: {
-      icon: 'mdi-bank',
+      icon: 'mdi-home-edit-outline',
       title: 'Xonalar',
       description: 'Xonalar',
+    }
+  },
+  {
+    path: 'users',
+    name: 'users',
+    component: () => import('pages/myEdu/PageUsers.vue'),
+    meta: {
+      icon: 'mdi-account-group',
+      title: 'Foydalanuvchilar',
+      description: 'Foydalanuvchilar',
     }
   }
 ]
