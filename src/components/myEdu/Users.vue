@@ -79,7 +79,7 @@
       <template v-slot:body-cell-branches="props">
         <q-td :props="props">
           <span v-if="props.row.branches">{{props.row.branches.name}}</span>
-          <span class="text-subtitle2">-</span>
+          <span v-else class="text-subtitle2">-</span>
         </q-td>
       </template>
 
