@@ -1,4 +1,5 @@
 export default {
-  "fp_captions":{},
-  "fp_modules":{}
-}
+  "fp_captions": {
+    "l_teachers": "Учителя"
+  }
+};

@@ -38,6 +38,16 @@ const modules = [
       title: 'fp_captions.l_subjects',
       description: 'fp_captions.l_subjects',
     }
+  },
+  {
+    path: 'teachers',
+    name: 'teachers',
+    component: () => import('pages/myEdu/PageTeachers.vue'),
+    meta: {
+      icon: 'mdi-account-tie-hat',
+      title: 'fp_captions.l_teachers',
+      description: 'fp_captions.l_teachers',
+    }
   }
 ]
 
