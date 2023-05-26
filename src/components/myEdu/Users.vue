@@ -72,13 +72,14 @@
 
       <template v-slot:body-cell-branchesId="props">
         <q-td :props="props">
-          <span v-for="role in props.row.roles">{{role.name}}</span>
+          <span v-if="props.row.roles" v-for="role in props.row.roles">{{role.name}}</span>
         </q-td>
       </template>
 
       <template v-slot:body-cell-branches="props">
         <q-td :props="props">
-          {{props.row.branches.name}}
+          <span v-if="props.row.branches">{{props.row.branches.name}}</span>
+          <span class="text-subtitle2">-</span>
         </q-td>
       </template>
 

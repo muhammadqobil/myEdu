@@ -15,8 +15,8 @@ const modules = [
     component: () => import('pages/myEdu/PageRooms.vue'),
     meta: {
       icon: 'mdi-home-edit-outline',
-      title: 'Xonalar',
-      description: 'Xonalar',
+      title: 'fp_captions.l_rooms',
+      description: 'fp_captions.l_rooms',
     }
   },
   {
@@ -25,8 +25,18 @@ const modules = [
     component: () => import('pages/myEdu/PageUsers.vue'),
     meta: {
       icon: 'mdi-account-group',
-      title: 'Foydalanuvchilar',
-      description: 'Foydalanuvchilar',
+      title: 'fp_captions.l_users',
+      description: 'fp_captions.l_users',
+    }
+  },
+  {
+    path: 'subjects',
+    name: 'subjects',
+    component: () => import('pages/myEdu/PageSubjects.vue'),
+    meta: {
+      icon: 'mdi-book-open-variant',
+      title: 'fp_captions.l_subjects',
+      description: 'fp_captions.l_subjects',
     }
   }
 ]

@@ -1,18 +1,18 @@
 <template>
-  <q-page padding class="row items-start justify-center">
+  <q-page padding class="row items-center justify-center">
     <q-card bordered class="fit">
       <module-header/>
-      <users class="q-pa-md"/>
+      <subjects class="q-pa-md"/>
     </q-card>
   </q-page>
 </template>
 
 <script>
 import ModuleHeader from "components/base/ModuleHeader";
-import Users from "components/myEdu/Users";
+import Subjects from "components/myEdu/Subjects";
 export default {
-  name: "PageUsers",
-  components: {Users, ModuleHeader}
+  name: "PageSubjects",
+  components: {Subjects, ModuleHeader}
 }
 </script>
 

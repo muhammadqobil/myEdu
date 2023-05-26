@@ -141,7 +141,7 @@ export default {
     ]),
 
     logout() {
-      this.confirmDialog(this.$t('fund_captions.l_confirm'), this.$t('fund_captions.l_you_really_exit'), () => {
+      this.confirmDialog(this.$t('captions.l_confirm'), this.$t('captions.l_you_really_exit'), () => {
             this.clearUserSession();
             this.$router.push('/login');
       });
