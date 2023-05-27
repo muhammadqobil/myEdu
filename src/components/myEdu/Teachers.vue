@@ -29,29 +29,29 @@
       </template>
       <template v-slot:top="props">
         <div class="fit row items-center">
-<!--          <q-select-->
-<!--            v-model="filter.branches"-->
-<!--            emit-value-->
-<!--            outlined-->
-<!--            map-options-->
-<!--            :options="data"-->
-<!--            option-value="id"-->
-<!--            option-label="name"-->
-<!--            :label="$t('fp_captions.l_mes')"-->
-<!--            stack-label-->
-<!--            transition-show="scale"-->
-<!--            transition-hide="scale"-->
-<!--            class="col-xs-12 col-md-2 col-lg-3 q-pl-md"-->
-<!--            dense>-->
-<!--            <template v-slot:append>-->
-<!--              <q-icon name="close" @click.stop="filter.branches = null"-->
-<!--                                                  class="cursor-pointer"/>-->
-<!--            </template>-->
-<!--            <template v-slot:selected-item="props">-->
-<!--              <div>{{ props.opt.name}}</div>-->
-<!--            </template>-->
+          <q-select
+            v-model="filter.subjectsId"
+            emit-value
+            outlined
+            map-options
+            :options="subjects"
+            option-value="id"
+            option-label="name"
+            :label="$t('Fanlar')"
+            stack-label
+            transition-show="scale"
+            transition-hide="scale"
+            class="col-xs-12 col-md-2 col-lg-3 q-pl-md"
+            dense>
+            <template v-slot:append>
+              <q-icon name="close" @click.stop="filter.subjectsId = null"
+                                                  class="cursor-pointer"/>
+            </template>
+            <template v-slot:selected-item="props">
+              <div>{{ props.opt.name}}</div>
+            </template>
 
-<!--          </q-select>-->
+          </q-select>
           <q-space/>
           <q-btn-group>
             <q-btn icon="add" class="bg-primary text-white" @click="rowAdd" dense>
@@ -72,6 +72,11 @@
       <template v-slot:body-cell-phone="props">
         <q-td :props="props">
           {{phone_format(props.row.phone)}}
+        </q-td>
+      </template>
+      <template v-slot:body-cell-subject="props">
+        <q-td :props="props">
+          {{phone_format(props.row.subjects.name)}}
         </q-td>
       </template>
       <template v-slot:body-cell-actions="props">
@@ -96,7 +101,7 @@
 
 
       <div class="row">
-        <q-input v-model="bean.name" :placeholder="$t('captions.l_name')"
+        <q-input v-model="bean.fio" :placeholder="$t('captions.l_users_fio')"
                  :label="$t('captions.l_name')"
                  class="q-pa-md col-xs-12 col-sm-12 col-md-12 col-lg-12" dense
                  lazy-rules :rules="[val => !!val || this.$t('system.field_is_required')]">
@@ -110,14 +115,34 @@
                    lazy-rules :rules="[val => !!val || this.$t('system.field_is_required')]">
           </q-input>
 
-        <q-input v-model="bean.address" :placeholder="$t('captions.l_description')"
-                 :label="$t('captions.l_description')"
-                 class="q-pa-md col-xs-12 col-sm-12 col-md-12 col-lg-12" dense
-        >
-          <template v-slot:prepend="props">
-            <q-icon name="mdi-text" color="secondary"/>
-          </template>
-        </q-input>
+<!--        <q-input v-model="bean.address" :placeholder="$t('captions.l_description')"-->
+<!--                 :label="$t('captions.l_description')"-->
+<!--                 class="q-pa-md col-xs-12 col-sm-12 col-md-12 col-lg-12" dense-->
+<!--        >-->
+<!--          <template v-slot:prepend="props">-->
+<!--            <q-icon name="mdi-text" color="secondary"/>-->
+<!--          </template>-->
+<!--        </q-input>-->
+
+
+          <div class="col-xs-12 col-sm-12">
+            <q-select
+              v-model="bean.subjectsId"
+              emit-value
+              map-options
+              :options="subjects"
+              option-value="id"
+              option-label="name"
+              :label="$t('Fani')"
+              transition-show="scale"
+              transition-hide="scale"
+              class="q-pa-md col-xs-12" dense
+            >
+              <template v-slot:selected-item="props">
+                <div>{{props.opt.name}}</div>
+              </template>
+            </q-select>
+          </div>
       </div>
 
     </standart-input-dialog>
@@ -149,7 +174,7 @@ export default {
         rowsNumber: 0
       },
       filter:{
-        branches:null
+        subjectsId:null,
       },
       columns: [
         {
@@ -162,8 +187,8 @@ export default {
         },
         {
           name: 'name',
-          field: row => row.name,
-          label: this.$t('captions.l_name'),
+          field: row => row.fio,
+          label: this.$t('captions.l_users_fio'),
           format: val => `${val}`,
           align: 'left',
           classes: 'col-1',
@@ -176,9 +201,9 @@ export default {
           classes: 'col-1',
         },
         {
-          name: 'address',
-          field: row => row.address,
-          label: this.$t('captions.l_address'),
+          name: 'subject',
+          field: row => row.subjectsId,
+          label: this.$t('Fani'),
           format: val => `${val}`,
           align: 'left',
         },
