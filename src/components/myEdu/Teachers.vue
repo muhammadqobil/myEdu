@@ -187,13 +187,13 @@ export default {
       data: [],
       beanDefault: {
         id: null,
-        name: null,
+        fio: null,
         phone: null,
-        address: null
+        subjectsId: null
       },
       bean: {},
       formDialog: false,
-      editMode: true,
+      subjects: [],
 
     }
   },
@@ -211,7 +211,18 @@ export default {
 
   },
   methods: {
-    ...mapGetters(['getUser'])
+    ...mapGetters(['getUser']),
+    getSubjectAll(){
+      this.$axios.get(urls.SUBJECTS + '/all' ).then(response=>{
+        this.subjects.splice(0,this.subjects.length , ...response.data.content)
+      }).catch((error)=>{
+        this.showError(error)
+        console.log(error)
+      }).finally(()=>{})
+    }
+  },
+  mounted() {
+    this.getSubjectAll()
   }
 }
 </script>
