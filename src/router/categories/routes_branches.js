@@ -48,12 +48,33 @@ const modules = [
       title: 'fp_captions.l_teachers',
       description: 'fp_captions.l_teachers',
     }
-  }
+  },
+  {
+    path: 'week-days',
+    name: 'week-days',
+    component: () => import('pages/myEdu/PageWeekDays.vue'),
+    meta: {
+      icon: 'mdi-account-tie-hat',
+      title: 'Hafta kunlari',
+      description: 'fp_captions.l_teachers',
+    }
+  },
+  {
+    path: 'groups',
+    name: 'groups',
+    component: () => import('pages/myEdu/PageGroups.vue'),
+    meta: {
+      icon: 'mdi-account-tie-hat',
+      title: 'Guruhlar',
+      description: 'fp_captions.l_teachers',
+    }
+  },
+
 ]
 
 const branches = {
-  path: '/branches',
-  name: 'branches',
+  path: '/week-days-controller',
+  name: 'week-days-controller',
   component: () => import('layouts/BaseLayout.vue'),
   meta: {
     title: 'modules.c_managing',
