@@ -13,3 +13,6 @@
 .my-menu .q-item__label--caption{
   color: #eeeeee !important;
 }
+table.q-table > tbody > tr.selected {
+  background: rgba($secondary, .07);
+}
