@@ -44,7 +44,7 @@ const modules = [
     name: 'teachers',
     component: () => import('pages/myEdu/PageTeachers.vue'),
     meta: {
-      icon: 'mdi-account-tie-hat',
+      icon: 'fas fa-person-chalkboard',
       title: 'fp_captions.l_teachers',
       description: 'fp_captions.l_teachers',
     }
@@ -54,7 +54,7 @@ const modules = [
     name: 'week-days',
     component: () => import('pages/myEdu/PageWeekDays.vue'),
     meta: {
-      icon: 'mdi-account-tie-hat',
+      icon: 'mdi-calendar-today',
       title: 'Hafta kunlari',
       description: 'fp_captions.l_teachers',
     }
@@ -64,7 +64,7 @@ const modules = [
     name: 'groups',
     component: () => import('pages/myEdu/PageGroups.vue'),
     meta: {
-      icon: 'mdi-account-tie-hat',
+      icon: 'mdi-account-group-outline',
       title: 'Guruhlar',
       description: 'fp_captions.l_teachers',
     }

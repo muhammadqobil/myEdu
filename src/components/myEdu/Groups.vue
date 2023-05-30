@@ -44,12 +44,26 @@
             </q-btn>
           </q-btn-group>
 
+
         </div>
       </template>
 
+      <template v-slot:body-cell-actions="props">
+        <q-td :props="props">
+          <q-btn size="sm" dense color="secondary" icon="mdi-pen" @click.stop="rowEdit(props.row)" class="q-mr-xs">
+            <q-tooltip content-class="bg-secondary">
+              {{$t('system.edit')}}
+            </q-tooltip>
+          </q-btn>
+          <q-btn size="sm" dense color="negative" icon="mdi-delete-variant" @click.stop="rowDelete(props.row)" class="q-mr-sm">
+            <q-tooltip content-class="bg-negative">
+              {{$t('system.delete')}}
+            </q-tooltip>
+          </q-btn>
+        </q-td>
+      </template>
 
     </q-table>
-
     <!--DIALOG-->
     <standart-input-dialog v-model="formDialog" :model-id="bean.id" :on-submit="onSubmit"
                            :on-validation-error="onValidationError">
@@ -92,7 +106,7 @@
             class="q-pa-md col-xs-12" dense
           >
             <template v-slot:selected-item="props">
-              <div>{{props.opt.teachers}}</div>
+              <div>{{props.opt.name}}</div>
             </template>
           </q-select>
           <q-select
@@ -101,20 +115,19 @@
             map-options
             :options="teachers"
             option-value="id"
-            option-label="name"
+            option-label="fio"
             :label="$t('O\'qituvchilar')"
             transition-show="scale"
             transition-hide="scale"
             class="q-pa-md col-xs-12" dense
           >
             <template v-slot:selected-item="props">
-              <div>{{props.opt.name}}</div>
+              <div>{{props.opt.fio}}</div>
             </template>
           </q-select>
 
           <q-select
             v-model="bean.weekDays"
-            emit-value
             map-options
             :options="weekDays"
             option-value="id"
@@ -216,7 +229,7 @@ export default {
       subjects: [],
       rooms: [],
       teachers: [],
-      weekDays: ["asad","dadada","adad"]
+      weekDays: []
     }
   },
   methods: {
@@ -241,6 +254,7 @@ export default {
     getTeachersAll(){
       this.$axios.get(urls.TEACHERS + this.tableFilterQuery(this.pagination) ).then(response=>{
         this.teachers.splice(0,this.teachers.length , ...response.data.content)
+        console.log('123',this.teachers)
       }).catch((error)=>{
         this.showError(error)
         console.log(error)
