@@ -17,5 +17,6 @@ export const urls = {
   SUBJECTS: "/admin/subjects",
   TEACHERS: "/admin/teachers",
   WEEK_DAYS: "/admin/weekdays",
-  GROUPS: "/admin/groups"
+  GROUPS: "/admin/groups",
+  STUDENTS: "/admin/students",
 }

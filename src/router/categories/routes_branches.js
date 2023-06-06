@@ -69,6 +69,16 @@ const modules = [
       description: 'fp_captions.l_teachers',
     }
   },
+  {
+    path: 'students',
+    name: 'students',
+    component: () => import('pages/myEdu/PageStudents.vue'),
+    meta: {
+      icon: 'mdi-account-group-outline',
+      title: 'Administratsiya',
+      description: 'fp_captions.l_teachers',
+    }
+  },
 
 ]
 
