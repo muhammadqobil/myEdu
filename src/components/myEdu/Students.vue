@@ -77,20 +77,20 @@
                  class="q-pa-md col-xs-12 col-sm-12 col-md-12 col-lg-12" dense
                  lazy-rules :rules="[val => !!val || this.$t('system.field_is_required')]">
         </q-input>
-        <q-input v-model="bean.selfPhone" :placeholder="('Shaxsiy tel raqami')"
-                 :label="$t('Shaxsiy tel raqami')"
+        <q-input v-model="bean.selfPhone" :placeholder="('fp_captions.l_personal_phone_number')"
+                 :label="$t('fp_captions.l_personal_phone_number')"
                  mask="(##) ### - ## - ##"
                  fill-mask
                  unmasked-value
-                 class="q-pa-md col-xs-12 col-sm-12 col-md-12 col-lg-12" dense
-                 lazy-rules :rules="[val => !!val || this.$t('system.field_is_required')]">
+                 class="q-pa-md col-xs-12 col-sm-12 col-md-12 col-lg-6" dense
+                 lazy-rules :rules="[val => !!val || this.$t('fp_captions.l_home_phone_number')]">
         </q-input>
-        <q-input v-model="bean.homePhone" :placeholder="('Uy tel raqami')"
-                 :label="$t('Uy tel raqami')"
+        <q-input v-model="bean.homePhone" :placeholder="('fp_captions.l_home_phone_number')"
+                 :label="$t('fp_captions.l_home_phone_number')"
                  mask="(##) ### - ## - ##"
                  fill-mask
                  unmasked-value
-                 class="q-pa-md col-xs-12 col-sm-12 col-md-12 col-lg-12" dense
+                 class="q-pa-md col-xs-12 col-sm-12 col-md-12 col-lg-6" dense
                  lazy-rules :rules="[val => !!val || this.$t('system.field_is_required')]">
         </q-input>
         <q-select
@@ -100,7 +100,7 @@
           :options="subjects"
           option-value="id"
           option-label="name"
-          :label="$t(`Fanlar`)"
+          :label="$t(`fp_captions.l_subjects`)"
           transition-show="scale"
           transition-hide="scale"
           class="q-pa-md col-xs-12" dense
@@ -123,7 +123,7 @@
           :options="groups"
           option-value="id"
           option-label="name"
-          :label="$t(`Guruhlar`)"
+          :label="$t('fp_captions')"
           transition-show="scale"
           transition-hide="scale"
           class="q-pa-md col-xs-12" dense

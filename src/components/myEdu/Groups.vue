@@ -189,29 +189,29 @@
     <standart-input-dialog v-model="formDialog" :model-id="bean.id" :on-submit="onSubmit"
                            :on-validation-error="onValidationError">
 
-
-      <div class="row" style="width: 400px">
-        <q-input v-model="bean.name" :placeholder="$t('captions.l_users_fio')"
+      <div class="row">
+        <q-input v-model="bean.name" :placeholder="$t('captions.l_name')"
                  :label="$t('captions.l_name')"
                  class="q-pa-md col-xs-12 col-sm-12 col-md-12 col-lg-12" dense
                  lazy-rules :rules="[val => !!val || this.$t('system.field_is_required')]">
         </q-input>
 
-        <div class="col-xs-12 col-sm-12">
+        <div class="row col-xs-12 col-sm-12 full-widths">
+
           <q-select
-            v-model="bean.roomsId"
+            v-model="bean.teachersId"
             emit-value
             map-options
-            :options="rooms"
+            :options="teachers"
             option-value="id"
-            option-label="name"
-            :label="$t('Honalar')"
+            option-label="fio"
+            :label="$t('fp_captions.l_teachers')"
             transition-show="scale"
             transition-hide="scale"
-            class="q-pa-md col-xs-12" dense
+            class="q-pa-md col-xs-12 col-lg-6" dense
           >
             <template v-slot:selected-item="props">
-              <div>{{props.opt.name}}</div>
+              <div>{{props.opt.fio}}</div>
             </template>
           </q-select>
           <q-select
@@ -221,29 +221,30 @@
             :options="subjects"
             option-value="id"
             option-label="name"
-            :label="$t(`Fanlar`)"
+            :label="$t(`fp_captions.l_subjects`)"
             transition-show="scale"
             transition-hide="scale"
-            class="q-pa-md col-xs-12" dense
+            class="q-pa-md col-xs-12 col-lg-6" dense
           >
             <template v-slot:selected-item="props">
               <div>{{props.opt.name}}</div>
             </template>
           </q-select>
+
           <q-select
-            v-model="bean.teachersId"
+            v-model="bean.roomsId"
             emit-value
             map-options
-            :options="teachers"
+            :options="rooms"
             option-value="id"
-            option-label="fio"
-            :label="$t('O\'qituvchilar')"
+            option-label="name"
+            :label="$t('fp_captions.l_rooms')"
             transition-show="scale"
             transition-hide="scale"
-            class="q-pa-md col-xs-12" dense
+            class="q-pa-md col-xs-12 col-lg-6" dense
           >
             <template v-slot:selected-item="props">
-              <div>{{props.opt.fio}}</div>
+              <div>{{props.opt.name}}</div>
             </template>
           </q-select>
 
@@ -255,11 +256,11 @@
             option-label="name"
             max-values="3"
             multiple
-            hint="Max 3 selections"
-            :label="$t('Hafta Kunlari')"
+            clearable
+            :label="$t('fp_captions.l_weekdays')"
             transition-show="scale"
             transition-hide="scale"
-            class="q-pa-md col-xs-12" dense
+            class="q-pa-md col-xs-12 col-lg-6" dense
             style="text-indent: 12px;"
 
           >
@@ -268,10 +269,10 @@
             </template>
           </q-select>
 
-          <q-input v-model="bean.description" :placeholder="$t('Izoh')"
-                   :label="$t('captions.l_name')"
+          <q-input v-model="bean.description" :placeholder="$t('captions.l_description')"
+                   :label="$t('captions.l_description')"
                    class="q-pa-md col-xs-12 col-sm-12 col-md-12 col-lg-12" dense
-                   lazy-rules :rules="[val => !!val || this.$t('system.field_is_required')]">
+                    >
           </q-input>
         </div>
       </div>
@@ -321,28 +322,28 @@ export default {
         {
           name: 'groups',
           field: row => row.name,
-          label: this.$t('Guruh'),
+          label: this.$t('fp_captions.l_group'),
           align: 'left',
           classes: 'col-1',
         },
         {
           name: 'teachers',
           field: row => row.fio,
-          label: this.$t('O\'qituvchi'),
+          label: this.$t('fp_captions.l_teacher'),
           align: 'left',
           classes: 'col-1',
         },
         {
           name: 'rooms',
           field: row => row.name,
-          label: this.$t('Xona ma\'lumoti'),
+          label: this.$t('fp_captions.l_room_info'),
           align: 'left',
           classes: 'col-1',
         },
         {
           name: 'createdDate',
           field: row => row.name,
-          label: this.$t('Qo\'shimcha ma\'lumot'),
+          label: this.$t('fp_captions.l_additional_information'),
           align: 'left',
           classes: 'col-1',
         },
@@ -369,7 +370,7 @@ export default {
   methods: {
     ...mapGetters(['getUser']),
     getSubjectAll(){
-      this.$axios.get(urls.SUBJECTS + '/all' ).then(response=>{
+      this.$axios.get(urls.SUBJECTS ).then(response=>{
         this.subjects.splice(0,this.subjects.length , ...response.data.content)
       }).catch((error)=>{
         this.showError(error)
@@ -378,7 +379,7 @@ export default {
     },
 
     getRoomsAll(){
-      this.$axios.get(urls.ROOMS + this.tableFilterQuery(this.pagination)).then(response=>{
+      this.$axios.get(urls.ROOMS).then(response=>{
         this.rooms.splice(0,this.rooms.length , ...response.data.content)
       }).catch((error)=>{
         this.showError(error)
@@ -386,7 +387,7 @@ export default {
       }).finally(()=>{})
     },
     getTeachersAll(){
-      this.$axios.get(urls.TEACHERS + this.tableFilterQuery(this.pagination) ).then(response=>{
+      this.$axios.get(urls.TEACHERS).then(response=>{
         this.teachers.splice(0,this.teachers.length , ...response.data.content)
       }).catch((error)=>{
         this.showError(error)
@@ -394,7 +395,7 @@ export default {
       }).finally(()=>{})
     },
     getWeekDaysAll(){
-      this.$axios.get(urls.WEEK_DAYS + this.tableFilterQuery(this.pagination) ).then(response=>{
+      this.$axios.get(urls.WEEK_DAYS).then(response=>{
         this.weekDays.splice(0,this.weekDays.length , ...response.data.content)
       }).catch((error)=>{
         this.showError(error)
