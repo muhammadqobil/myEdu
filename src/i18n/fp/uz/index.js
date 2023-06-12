@@ -11,7 +11,9 @@ export default {
     "l_personal_phone_number": "Shaxsiy tel raqami",
     "l_home_phone_number": "Uy tel raqami",
     "l_group": "Guruh",
+    "l_groups": "Guruhlar",
     "l_room_info": "Xonalar ma'lumoti",
-    "l_additional_information": "Qo'shimcha ma'lumot"
+    "l_additional_information": "Qo'shimcha ma'lumot",
+    "l_not_selected": "Hech narsa tanlanmadi"
   }
 };

@@ -70,13 +70,23 @@ const modules = [
     }
   },
   {
+    path: 'administration',
+    name: 'administration',
+    component: () => import('pages/myEdu/PageAdministration.vue'),
+    meta: {
+      icon: 'mdi-account-star-outline',
+      title: 'Administratsiya',
+      description: 'fp_captions.l_teachers',
+    }
+  },
+  {
     path: 'students',
     name: 'students',
     component: () => import('pages/myEdu/PageStudents.vue'),
     meta: {
-      icon: 'mdi-account-group-outline',
-      title: 'Administratsiya',
-      description: 'fp_captions.l_teachers',
+      icon: 'mdi-account-school-outline',
+      title: 'O\'quvchilar',
+      description: 'O\'quvchilar',
     }
   },
 

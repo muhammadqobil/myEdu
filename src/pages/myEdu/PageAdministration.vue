@@ -2,17 +2,18 @@
   <q-page padding class="row items-start justify-center">
     <q-card bordered class="fit">
       <module-header/>
-      <students/>
+      <administration class="q-pa-md"/>
     </q-card>
   </q-page>
 </template>
 
 <script>
+import Students from "components/myEdu/Administration";
 import ModuleHeader from "components/base/ModuleHeader";
-import Students from "components/myEdu/Students";
+import Administration from "components/myEdu/Administration";
 export default {
-  name: "PageStudents",
-  components: {Students, ModuleHeader}
+  name: "PageAdministration",
+  components: {Administration, ModuleHeader}
 }
 </script>
 

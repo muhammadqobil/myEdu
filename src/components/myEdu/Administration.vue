@@ -1,87 +1,73 @@
 <template>
   <div>
-    <div class="row q-col-gutter-sm">
-      <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-        <q-table
-          ref="table"
-          :row-key="rowKey"
-          :data="data"
-          :dense="$q.screen.lt.md"
-          :grid="$q.screen.xs"
-          :columns="columns"
-          :pagination.sync="pagination"
-          :loading="loading"
-          :filter="filter"
-          @request="refreshData"
-          :selected.sync="selectedRows"
-          separator="horizontal"
-          color="secondary"
-          bordered
-          :no-data-label="noDataText()"
-          :rows-per-page-label="perPageText()"
-          :pagination-label="paginationText"
-          :selected-rows-label="selectedRowsText"
-          @row-click="singleRowClick"
-          class="sticky-last-column-table"
-          style="height: calc(100vh - 192px); overflow-y: auto"
-        >
-          <template v-slot:no-data="props">
-            {{$t('system.no_matching_found')}}
-          </template>
-          <template v-slot:top="props">
-            <div class="fit row items-center">
-              <q-space/>
-              <q-btn-group>
-                <q-btn icon="add" class="bg-primary text-white" @click="rowAdd" dense>
-                  <q-tooltip content-class="bg-primary">
-                    {{$t('system.add')}}
-                  </q-tooltip>
-                </q-btn>
-                <q-btn :loading="loading" size="md" dense color="primary" icon="mdi-reload" @click.stop="refreshTable(true)">
-                  <q-tooltip content-class="bg-primary">
-                    {{ $t('fp_captions.l_reload') }}
-                  </q-tooltip>
-                </q-btn>
-              </q-btn-group>
-            </div>
-          </template>
-          <template v-slot:body-cell-selfPhone="props">
-            <q-td :props="props">
-              {{phone_format(props.row.selfPhone)}}
-            </q-td>
-          </template>
-          <template v-slot:body-cell-actions="props">
-            <q-td :props="props">
-              <q-btn size="sm" dense color="secondary" icon="mdi-pen" @click.stop="rowEdit(props.row)" class="q-mr-xs">
-                <q-tooltip content-class="bg-secondary">
-                  {{$t('system.edit')}}
-                </q-tooltip>
-              </q-btn>
-              <q-btn size="sm" dense color="negative" icon="mdi-delete-variant" @click.stop="rowDelete(props.row)" class="q-mr-sm">
-                <q-tooltip content-class="bg-negative">
-                  {{$t('system.delete')}}
-                </q-tooltip>
-              </q-btn>
-            </q-td>
-          </template>
-        </q-table>
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-        <div class="full-height bg-white">
-          <students-mini-card v-if="selectedRows && selectedRows[0]"/>
-          <template v-else>
-            <q-card class="fit no-shadow">
-              <q-card-section class="full-width">
-                <div class="q-pa-xl text-center full-width">
-                  <q-icon name="mdi-select" size="45px" class="text-blue-grey-12"/>
-                  <h4 class="text-subtitle text-blue-grey-12 q-mt-xl q-mb-xl">{{ $t('fp_captions.l_not_selected') }}</h4>
-                </div>
-              </q-card-section>
-            </q-card>
-          </template>
+    <q-table
+      ref="table"
+      :row-key="rowKey"
+      :data="data"
+      :dense="$q.screen.lt.md"
+      :grid="$q.screen.xs"
+      :columns="columns"
+      :pagination.sync="pagination"
+      :loading="loading"
+      :filter="filter"
+      @request="refreshData"
+      :selected.sync="selectedRows"
+      separator="horizontal"
+      color="secondary"
+      bordered
+      :no-data-label="noDataText()"
+      :rows-per-page-label="perPageText()"
+      :pagination-label="paginationText"
+      :selected-rows-label="selectedRowsText"
+      @row-click="singleRowClick"
+      class="sticky-last-column-table"
+      style="height: calc(100vh - 192px); overflow-y: auto"
+    >
+      <template v-slot:no-data="props">
+        {{$t('system.no_matching_found')}}
+      </template>
+      <template v-slot:top="props">
+        <div class="fit row items-center">
+          <q-space/>
+          <q-btn-group>
+            <q-btn icon="add" class="bg-primary text-white" @click="rowAdd" dense>
+              <q-tooltip content-class="bg-primary">
+                {{$t('system.add')}}
+              </q-tooltip>
+            </q-btn>
+            <q-btn :loading="loading" size="md" dense color="primary" icon="mdi-reload" @click.stop="refreshTable(true)">
+              <q-tooltip content-class="bg-primary">
+                {{ $t('fp_captions.l_reload') }}
+              </q-tooltip>
+            </q-btn>
+          </q-btn-group>
         </div>
-      </div>
-    </div>
+      </template>
+      <template v-slot:body-cell-selfPhone="props">
+        <q-td :props="props">
+          {{phone_format(props.row.selfPhone)}}
+        </q-td>
+      </template>
+      <template v-slot:body-cell-actions="props">
+        <q-td :props="props">
+          <q-btn size="sm" dense color="positive" icon="mdi-account-group-outline" @click.stop="addGroup(props.row)" class="q-mr-xs">
+            <q-tooltip content-class="bg-positive">
+              {{$t('Guruhga biriktirish')}}
+            </q-tooltip>
+          </q-btn>
+          <q-btn size="sm" dense color="secondary" icon="mdi-pen" @click.stop="rowEdit(props.row)" class="q-mr-xs">
+            <q-tooltip content-class="bg-secondary">
+              {{$t('system.edit')}}
+            </q-tooltip>
+          </q-btn>
+          <q-btn size="sm" dense color="negative" icon="mdi-delete-variant" @click.stop="rowDelete(props.row)" class="q-mr-sm">
+            <q-tooltip content-class="bg-negative">
+              {{$t('system.delete')}}
+            </q-tooltip>
+          </q-btn>
+        </q-td>
+      </template>
+    </q-table>
     <!--  DIALOG  -------->
     <standart-input-dialog v-model="formDialog" :model-id="bean.id" :on-submit="onSubmit"
                            :on-validation-error="onValidationError">
@@ -125,6 +111,29 @@
         </q-select>
       </div>
     </standart-input-dialog>
+    <!--  ADD GROUP DIALOG -->
+    <standart-input-dialog v-model="groupDialog" :model-id="bean.id" :on-submit="addGroupToStudent"
+                           :on-validation-error="onValidationError">
+
+      <div class="row">
+        <q-select
+          v-model="groupsBean.groupsId"
+          emit-value
+          map-options
+          :options="groups"
+          option-value="id"
+          option-label="name"
+          :label="$t('fp_captions.l_groups')"
+          transition-show="scale"
+          transition-hide="scale"
+          class="q-pa-md col-xs-12" dense
+        >
+          <template v-slot:selected-item="props">
+            <div>{{props.opt.name}}</div>
+          </template>
+        </q-select>
+      </div>
+    </standart-input-dialog>
   </div>
 </template>
 
@@ -133,12 +142,10 @@ import StandartInputDialog from "components/base/StandartInputDialog";
 import StandartTable from "src/mixins/StandartTable";
 import {urls} from "src/utils/constants";
 import {mapGetters} from "vuex";
-import Teachers from "components/myEdu/Teachers";
-import StudentsMiniCard from "components/myEdu/StudentsMiniCard";
 
 export default {
-  name: "Students",
-  components: {StudentsMiniCard, Teachers, StandartInputDialog},
+  name: "Administration",
+  components: {StandartInputDialog},
   mixins: [StandartTable],
   data() {
     return {
@@ -153,7 +160,9 @@ export default {
         rowsPerPage: 10,
         rowsNumber: 0
       },
-      filter:{},
+      filter:{
+        forReception:1,
+      },
       columns: [
         {
           name: 'id',
@@ -202,11 +211,6 @@ export default {
       editMode: true,
     }
   },
-  watch:{
-    data:function (val){
-      this.selectedRows.splice(0, this.selectedRows.length , val[0])
-    }
-  },
   methods: {
     ...mapGetters(['getUser']),
     getSubjectAll(){
@@ -225,6 +229,20 @@ export default {
         console.log(error)
       }).finally(()=>{})
     },
+    /**ADDING GROUP TO STUDENT**/
+    addGroup(bean){
+      this.groupsBean.studentsId = bean.id;
+      this.groupDialog = true;
+    },
+    addGroupToStudent(){
+      this.$axios.post(urls.STUDENTS + '/add-group', this.groupsBean).then(response => {
+        this.refreshTable();
+        this.groupDialog = false;
+        this.showInfo(this.$t('fp_captions.l_upload_successfully'));
+      }).catch(err => {
+        this.showError(err);
+      })
+    }
   },
 
   mounted() {

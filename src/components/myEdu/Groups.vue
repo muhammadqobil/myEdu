@@ -208,7 +208,7 @@
             :label="$t('fp_captions.l_teachers')"
             transition-show="scale"
             transition-hide="scale"
-            class="q-pa-md col-xs-12 col-lg-6" dense
+            class="q-pa-md col-xs-12 col-md-6 col-lg-6" dense
           >
             <template v-slot:selected-item="props">
               <div>{{props.opt.fio}}</div>
@@ -224,7 +224,7 @@
             :label="$t(`fp_captions.l_subjects`)"
             transition-show="scale"
             transition-hide="scale"
-            class="q-pa-md col-xs-12 col-lg-6" dense
+            class="q-pa-md col-xs-12 col-md-6 col-lg-6" dense
           >
             <template v-slot:selected-item="props">
               <div>{{props.opt.name}}</div>
@@ -241,7 +241,7 @@
             :label="$t('fp_captions.l_rooms')"
             transition-show="scale"
             transition-hide="scale"
-            class="q-pa-md col-xs-12 col-lg-6" dense
+            class="q-pa-md col-xs-12 col-md-6 col-lg-6" dense
           >
             <template v-slot:selected-item="props">
               <div>{{props.opt.name}}</div>
@@ -260,7 +260,7 @@
             :label="$t('fp_captions.l_weekdays')"
             transition-show="scale"
             transition-hide="scale"
-            class="q-pa-md col-xs-12 col-lg-6" dense
+            class="q-pa-md col-xs-12 col-md-6 col-lg-6" dense
             style="text-indent: 12px;"
 
           >
@@ -268,6 +268,23 @@
               <div>{{props.opt.name}}</div>
             </template>
           </q-select>
+          <div class=" q-pl-md text-subtitle2 full-width">
+            Darsga kirish vaqti
+          </div>
+          <q-input v-model="bean.timeFrom" :placeholder="$t('captions.l_from_date')"
+            :label="$t('captions.l_from_date')"
+            mask="## : ##"
+            fill-mask
+            class="q-pa-md col-xs-12 col-sm-12 col-md-6 col-lg-6" dense
+            lazy-rules :rules="[val => !!val || this.$t('system.field_is_required')]">
+        </q-input>
+        <q-input v-model="bean.timeTo" :placeholder="$t('captions.l_to_date')"
+           :label="$t('captions.l_to_date')"
+           mask="## : ##"
+           fill-mask
+           class="q-pa-md col-xs-12 col-sm-12 col-md-6 col-lg-6" dense
+           lazy-rules :rules="[val => !!val || this.$t('system.field_is_required')]">
+        </q-input>
 
           <q-input v-model="bean.description" :placeholder="$t('captions.l_description')"
                    :label="$t('captions.l_description')"
