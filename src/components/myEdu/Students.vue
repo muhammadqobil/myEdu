@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row q-col-gutter-sm">
-      <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+      <div class="col-xs-12 col-sm-6 col-md-8 col-lg-8">
         <q-table
           ref="table"
           :row-key="rowKey"
@@ -45,9 +45,60 @@
               </q-btn-group>
             </div>
           </template>
-          <template v-slot:body-cell-selfPhone="props">
+          <template v-slot:body-cell-fio="props">
             <q-td :props="props">
-              {{phone_format(props.row.selfPhone)}}
+              <div class="row">
+                <div class="col name-column">
+                  <span> {{$t('captions.l_fio')}} : </span>
+                  <span class="text-bold">
+                {{props.row.fio}}
+              </span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col name-column">
+                  <span> {{$t('fp_captions.l_personal_phone_number')}} : </span>
+                  <span class="text-bold">
+                    {{phone_format(props.row.selfPhone)}}
+                  </span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col name-column">
+                  <span> {{$t('fp_captions.l_home_phone_number')}} : </span>
+                  <span class="text-bold">
+                    {{phone_format(props.row.homePhone)}}
+                  </span>
+                </div>
+              </div>
+            </q-td>
+          </template>
+          <template v-slot:body-cell-createdDate="props">
+            <q-td :props="props">
+              <div class="row">
+                <div class="col name-column">
+                  <span> {{$t('fp_captions.l_subject_name')}} : </span>
+                  <span class="text-bold">
+                    {{props.row.subjectsName}}
+                  </span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col name-column">
+                  <span> {{$t('captions.l_created_date')}} : </span>
+                  <span class="text-bold">
+                    {{$dateutil.formatDate(props.row.createdDate ,'DD.MM.YYYY')}}
+                  </span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col name-column">
+                  <span> {{$t('o\'quvchi holati')}} : </span>
+                  <span class="text-bold">
+                    <q-chip outline square color="positive" size="sm"><span class="text-subtitle2">{{props.row.studentStatusesName}}</span></q-chip>
+                  </span>
+                </div>
+              </div>
             </q-td>
           </template>
           <template v-slot:body-cell-actions="props">
@@ -66,9 +117,9 @@
           </template>
         </q-table>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
         <div class="full-height bg-white">
-          <students-mini-card v-if="selectedRows && selectedRows[0]"/>
+          <students-mini-card v-if="selectedRows && selectedRows[0]" :data="selectedRows[0].groupsDto"/>
           <template v-else>
             <q-card class="fit no-shadow">
               <q-card-section class="full-width">
@@ -166,15 +217,15 @@ export default {
         {
           name: 'fio',
           field: row => row.fio,
-          label: this.$t('captions.l_FIO'),
+          label: this.$t('o\'quvchi'),
           format: val => `${val}`,
           align: 'left',
           classes: 'col-1',
         },
         {
-          name: 'selfPhone',
-          field: row => row.selfPhone,
-          label: this.$t('captions.l_phone'),
+          name: 'createdDate',
+          field: row => row.createdDate,
+          label: this.$t('fp_captions.l_additional_information'),
           format: val => `${val}`,
           align: 'left',
           classes: 'col-1',
@@ -187,8 +238,7 @@ export default {
         id: null,
         fio: null,
         selfPhone: null,
-        homePhone: null,
-        subjects_id: null
+        homePhone: null
       },
       groupsBean: {
         studentsId:null,
