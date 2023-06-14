@@ -75,14 +75,14 @@
           </template>
           <template v-slot:body-cell-createdDate="props">
             <q-td :props="props">
-              <div class="row">
-                <div class="col name-column">
-                  <span> {{$t('fp_captions.l_subject_name')}} : </span>
-                  <span class="text-bold">
-                    {{props.row.subjectsName}}
-                  </span>
-                </div>
-              </div>
+<!--              <div class="row">-->
+<!--                <div class="col name-column">-->
+<!--                  <span> {{$t('fp_captions.l_subject_name')}} : </span>-->
+<!--                  <span class="text-bold">-->
+<!--                    {{props.row.subjectsName}}-->
+<!--                  </span>-->
+<!--                </div>-->
+<!--              </div>-->
               <div class="row">
                 <div class="col name-column">
                   <span> {{$t('captions.l_created_date')}} : </span>
@@ -93,7 +93,7 @@
               </div>
               <div class="row">
                 <div class="col name-column">
-                  <span> {{$t('o\'quvchi holati')}} : </span>
+                  <span> {{$t('O\'quvchi holati')}} : </span>
                   <span class="text-bold">
                     <q-chip outline square color="positive" size="sm"><span class="text-subtitle2">{{props.row.studentStatusesName}}</span></q-chip>
                   </span>
@@ -217,7 +217,7 @@ export default {
         {
           name: 'fio',
           field: row => row.fio,
-          label: this.$t('o\'quvchi'),
+          label: this.$t('O\'quvchi'),
           format: val => `${val}`,
           align: 'left',
           classes: 'col-1',

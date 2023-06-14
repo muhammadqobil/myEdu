@@ -169,6 +169,19 @@
         </q-td>
       </template>
 
+      <template v-slot:body-cell-timeFrom="props">
+        <q-td :props="props">
+          <div class="row">
+            <div class="col name-column">
+              <span><q-icon name="mdi-clock" size="xs" color="primary"/></span>
+              <span class="text-bold">
+                {{props.row.timeFrom}} - {{props.row.timeTo}}
+              </span>
+            </div>
+          </div>
+        </q-td>
+      </template>
+
       <template v-slot:body-cell-actions="props">
         <q-td :props="props">
           <q-btn size="sm" dense color="secondary" icon="mdi-pen" @click.stop="rowEdit(props.row)" class="q-mr-xs">
@@ -354,6 +367,14 @@ export default {
           name: 'rooms',
           field: row => row.name,
           label: this.$t('fp_captions.l_room_info'),
+          align: 'left',
+          classes: 'col-1',
+        },
+        {
+          name: 'timeFrom',
+          field: row => row.timeFrom,
+          label: this.$t('Dars vaqtlari'),
+          format: val => `${val}`,
           align: 'left',
           classes: 'col-1',
         },
