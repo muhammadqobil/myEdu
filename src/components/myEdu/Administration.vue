@@ -274,7 +274,7 @@ export default {
     },
     getGroupsAll(){
       this.$axios.get(urls.GROUPS).then(response=>{
-        this.groups.splice(0,this.subjects.length , ...response.data.content)
+        this.groups.splice(0,this.groups.length , ...response.data.content)
       }).catch((error)=>{
         this.showError(error)
         console.log(error)

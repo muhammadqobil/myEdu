@@ -8,7 +8,7 @@
            <span class="text-bold text-subtitle2 text-primary q-ml-md">{{ $t('Guruhlar') }}</span>
          </div>
          <q-btn-group spread>
-           <q-btn @click="rowAdd" dense color="primary" icon="add">
+           <q-btn @click="rowAdd()" dense color="primary" icon="add">
              <q-tooltip content-class="bg-primary">
                {{ $t('fp_captions.l_new') }}
              </q-tooltip>
@@ -36,30 +36,70 @@
 
            <q-separator inset />
 
-           <q-card-section>
+           <q-card-section v-if="item.lastPaymentDate">
             <div class="text-subtitle2 flex justify-between">
               <span class="text-grey-7">To'lov sanasi:</span>
-              <span class="text-right" style="background: #b1d3f6; padding: 0 5px; border-radius: 3px">{{'12.06.2022'}}</span>
+              <span class="text-right" style="background: #b1d3f6; padding: 0 5px; border-radius: 3px">{{$dateutil.formatDate(item.lastPaymentDate , "DD.MM.YYYY")}}</span>
             </div>
            </q-card-section>
-           <q-card-section style="padding-top: 0">
+           <q-card-section style="padding-top: 0" v-if="item.nextPaymentDate">
             <div class="text-subtitle2 flex justify-between">
               <span class="text-grey-7">Keyingi to'lov sanasi:</span>
-              <span class="text-right" style="background: #f6edb1; padding: 0 5px; border-radius: 3px">{{'12.06.2022'}}</span>
+              <span class="text-right" style="background: #f6edb1; padding: 0 5px; border-radius: 3px">{{$dateutil.formatDate(item.nextPaymentDate , "DD.MM.YYYY")}}</span>
+            </div>
+           </q-card-section>
+           <q-separator inset v-if="item.status === 1" />
+           <q-card-section>
+            <div class="text-subtitle2 flex justify-between">
+              <span class="text-grey-7">Holati:</span>
+              <q-chip outline square :color="item.status === 0 ? 'negative' :'positive'" size="sm">
+                <span v-if="item.status===0" class="text-subtitle2">To'lov qilinmagan</span>
+                <span v-if="item.status===1" class="text-subtitle2">To'lov qilingan</span>
+              </q-chip>
             </div>
            </q-card-section>
          </q-card>
        </div>
      </q-scroll-area>
    </div>
+   <!--  ADD GROUP DIALOG -->
+   <standart-input-dialog v-model="formDialog" :model-id="bean.id" :on-submit="addGroupToStudent"
+                          :on-validation-error="onValidationError">
+
+     <div class="row">
+       <q-select
+         v-model="bean.groupsId"
+         emit-value
+         map-options
+         :options="groups"
+         option-value="id"
+         option-label="name"
+         :label="$t('fp_captions.l_groups')"
+         transition-show="scale"
+         transition-hide="scale"
+         class="q-pa-md col-xs-12" dense
+       >
+         <template v-slot:append>
+           <q-icon v-if="bean.groupsId" name="close" color="primary" @click.stop="bean.groupsId = null"
+                   class="cursor-pointer"/>
+         </template>
+         <template v-slot:selected-item="props">
+           <div>{{props.opt.name}}</div>
+         </template>
+       </q-select>
+     </div>
+   </standart-input-dialog>
  </div>
 </template>
 
 <script>
 import StandartTable from "src/mixins/StandartTable";
+import {urls} from "src/utils/constants";
+import StandartInputDialog from "components/base/StandartInputDialog";
 
 export default {
   name: "StudentsMiniCard",
+  components: {StandartInputDialog},
   mixins:[StandartTable],
   props:{
     data:{
@@ -68,8 +108,47 @@ export default {
   },
   data(){
     return{
-
+      groupsBean: {
+        studentsId:null,
+        groupsId:null,
+      },
+      formDialog:false,
+      beanDefault:{
+        id: null,
+        studentsId:this.data[0].studentsId,
+        groupsId:null,
+      },
+      bean:{},
+      groups:[]
     }
+  },
+  watch:{
+    data:function (val){
+      this.$set(this.beanDefault , 'studentsId' ,this.data[0].studentsId )
+    }
+  },
+  methods:{
+    /**ADDING GROUP TO STUDENT**/
+    addGroupToStudent(){
+      this.$axios.post(urls.STUDENTS + '/add-group', this.bean).then(response => {
+        this.$emit('addGroup' , 1)
+        this.formDialog = false;
+        this.showInfo(this.$t('fp_captions.l_upload_successfully'));
+      }).catch(err => {
+        this.showError(err);
+      })
+    },
+    getGroupsAll(){
+      this.$axios.get(urls.GROUPS).then(response=>{
+        this.groups.splice(0,this.groups.length , ...response.data.content)
+      }).catch((error)=>{
+        this.showError(error)
+        console.log(error)
+      }).finally(()=>{})
+    },
+  },
+  mounted() {
+    this.getGroupsAll()
   }
 }
 </script>

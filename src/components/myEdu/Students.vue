@@ -45,8 +45,13 @@
               </q-btn-group>
             </div>
           </template>
+          <template v-slot:body-cell-id="props">
+            <q-td :props="props" :style="'background:' + nvl(props.row.paymentColor)">
+              {{props.row.id}}
+            </q-td>
+          </template>
           <template v-slot:body-cell-fio="props">
-            <q-td :props="props">
+            <q-td :props="props" :style="'background:' + nvl(props.row.paymentColor)">
               <div class="row">
                 <div class="col name-column">
                   <span> {{$t('captions.l_fio')}} : </span>
@@ -74,15 +79,7 @@
             </q-td>
           </template>
           <template v-slot:body-cell-createdDate="props">
-            <q-td :props="props">
-<!--              <div class="row">-->
-<!--                <div class="col name-column">-->
-<!--                  <span> {{$t('fp_captions.l_subject_name')}} : </span>-->
-<!--                  <span class="text-bold">-->
-<!--                    {{props.row.subjectsName}}-->
-<!--                  </span>-->
-<!--                </div>-->
-<!--              </div>-->
+            <q-td :props="props" :style="'background:' + nvl(props.row.paymentColor)">
               <div class="row">
                 <div class="col name-column">
                   <span> {{$t('captions.l_created_date')}} : </span>
@@ -119,7 +116,7 @@
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
         <div class="full-height bg-white">
-          <students-mini-card v-if="selectedRows && selectedRows[0]" :data="selectedRows[0].groupsDto"/>
+          <students-mini-card v-if="selectedRows && selectedRows[0]" @addGroup="this.refreshTable" :data="selectedRows[0].groupsDto"/>
           <template v-else>
             <q-card class="fit no-shadow">
               <q-card-section class="full-width">
@@ -274,6 +271,11 @@ export default {
         this.showError(error)
         console.log(error)
       }).finally(()=>{})
+    },
+    nvl(txt, val) {
+      if (txt)
+        return txt;
+      return val;
     },
   },
 
