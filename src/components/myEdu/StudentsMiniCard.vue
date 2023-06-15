@@ -26,7 +26,19 @@
            <q-card-section>
              <div class="text-h6 flex justify-between items-center">
                <span>{{item.groupsName}}</span>
-               <q-btn color="grey-7" size="md" round flat icon="more_vert"></q-btn>
+               <q-btn-group>
+                 <q-btn size="sm" dense color="purple-8" icon="mdi-cash-check">
+                   <q-tooltip content-class="bg-purple-8">
+                     {{$t('To`lov qilish')}}
+                   </q-tooltip>
+                 </q-btn>
+                 <q-separator vertical/>
+                 <q-btn size="sm" dense color="red-7" icon="mdi-account-remove">
+                   <q-tooltip content-class="bg-red-7">
+                     {{$t('Guruhdan chiqarish')}}
+                   </q-tooltip>
+                 </q-btn>
+               </q-btn-group>
              </div>
              <div class="text-subtitle2 flex justify-between">
                <span class="text-grey-7">o'qituvchi:</span>
