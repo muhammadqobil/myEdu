@@ -28,7 +28,29 @@
       </template>
       <template v-slot:top="props">
         <div class="fit row items-center">
+          <q-select
+            v-model="filter.subjectsId"
+            emit-value
+            outlined
+            map-options
+            :options="subjects"
+            option-value="id"
+            option-label="name"
+            :label="$t('Fanlar')"
+            stack-label
+            transition-show="scale"
+            transition-hide="scale"
+            class="col-xs-12 col-md-2 col-lg-3 q-pl-md"
+            dense>
+            <template v-slot:append>
+              <q-icon name="close" @click.stop="filter.subjectsId = null"
+                      class="cursor-pointer"/>
+            </template>
+            <template v-slot:selected-item="props">
+              <div>{{ props.opt.name}}</div>
+            </template>
 
+          </q-select>
           <q-space/>
           <q-btn-group>
             <q-btn icon="add" class="bg-primary text-white" @click="rowAdd" dense>
@@ -440,6 +462,7 @@ export default {
         console.log(error)
       }).finally(()=>{})
     }
+
   },
 
   mounted() {
