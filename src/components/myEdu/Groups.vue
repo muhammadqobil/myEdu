@@ -83,8 +83,28 @@
           <div class="row">
             <div class="col name-column">
               <span> {{$t('fp_captions.l_subject_name')}} : </span>
-              <span v-if="props.row.subjects" class="text-bold">
-                {{props.row.subjects.name}}
+              <span v-if="props.row.subjectName" class="text-bold">
+                {{props.row.subjectName}}
+              </span>
+            </div>
+          </div>
+        </q-td>
+      </template>
+      <template v-slot:body-cell-teacherFio="props">
+        <q-td :props="props">
+          <div class="row">
+            <div class="col name-column">
+              <span> {{$t('captions.l_fio')}} : </span>
+              <span v-if="props.row.teacherFio" class="text-bold">
+                {{props.row.teacherFio}}
+              </span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col name-column">
+              <span> {{$t('captions.l_phone')}} : </span>
+              <span v-if="props.row.teacherPhone" class="text-bold">
+                {{phone_format(props.row.teacherPhone)}}
               </span>
             </div>
           </div>
@@ -110,33 +130,13 @@
           </div>
         </q-td>
       </template>
-      <template v-slot:body-cell-teachers="props">
-        <q-td :props="props">
-          <div class="row">
-            <div class="col name-column">
-              <span> {{$t('captions.l_fio')}} : </span>
-              <span v-if="props.row.teachers" class="text-bold">
-                {{props.row.teachers.fio}}
-              </span>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col name-column">
-              <span> {{$t('captions.l_phone')}} : </span>
-              <span v-if="props.row.teachers" class="text-bold">
-                {{phone_format(props.row.teachers.phone)}}
-              </span>
-            </div>
-          </div>
-        </q-td>
-      </template>
-      <template v-slot:body-cell-rooms="props">
+      <template v-slot:body-cell-roomName="props">
         <q-td :props="props">
           <div class="row">
             <div class="col name-column">
               <span> {{$t('captions.l_name')}} : </span>
-              <span v-if="props.row.rooms" class="text-bold">
-                {{props.row.rooms.number}} <span> - </span>{{props.row.rooms.name}}
+              <span v-if="props.row.roomName" class="text-bold">
+                {{props.row.roomNumber}} <span> - </span>{{props.row.roomName}}
               </span>
             </div>
           </div>
@@ -156,7 +156,7 @@
             <div class="col name-column">
               <span> {{$t('captions.l_name')}} : </span>
               <span v-if="props.row.rooms" class="text-bold">
-                {{props.row.rooms.number}} <span> - </span>{{props.row.rooms.name}}
+                {{props.row.rooms.number}} <span> - </span>{{props.row.roomName}}
               </span>
             </div>
           </div>
@@ -379,15 +379,15 @@ export default {
           classes: 'col-1',
         },
         {
-          name: 'teachers',
-          field: row => row.fio,
+          name: 'teacherFio',
+          field: row => row.teacherFio,
           label: this.$t('fp_captions.l_teacher'),
           align: 'left',
           classes: 'col-1',
         },
         {
-          name: 'rooms',
-          field: row => row.name,
+          name: 'roomName',
+          field: row => row.roomName,
           label: this.$t('fp_captions.l_room_info'),
           align: 'left',
           classes: 'col-1',
