@@ -8,7 +8,7 @@
            <span class="text-bold text-subtitle2 text-primary q-ml-md">{{ $t('Guruhlar') }}</span>
          </div>
          <q-btn-group spread>
-           <q-btn @click="rowAdd()" dense color="primary" icon="add">
+           <q-btn @click="rowAdd" dense color="primary" icon="add">
              <q-tooltip content-class="bg-primary">
                {{ $t('fp_captions.l_new') }}
              </q-tooltip>
@@ -27,13 +27,13 @@
              <div class="text-h6 flex justify-between items-center">
                <span>{{item.groupsName}}</span>
                <q-btn-group>
-                 <q-btn size="sm" dense color="purple-8" icon="mdi-cash-check">
+                 <q-btn @click="addPayment(item)" size="sm" dense color="purple-8" icon="mdi-cash-check">
                    <q-tooltip content-class="bg-purple-8">
                      {{$t('To`lov qilish')}}
                    </q-tooltip>
                  </q-btn>
                  <q-separator vertical/>
-                 <q-btn size="sm" dense color="red-7" icon="mdi-account-remove">
+                 <q-btn @click="removeStudent(item)" size="sm" dense color="red-7" icon="mdi-account-remove">
                    <q-tooltip content-class="bg-red-7">
                      {{$t('Guruhdan chiqarish')}}
                    </q-tooltip>
@@ -101,6 +101,27 @@
        </q-select>
      </div>
    </standart-input-dialog>
+   <!--  ADD Payment DIALOG -->
+   <standart-input-dialog v-model="addPaymentDialog" :model-id="addPeymentbean.id" :on-submit="onAddPayment"
+                          :on-validation-error="onValidationError">
+
+     <div class="row justify-start">
+       <date-input2
+         v-model="addPeymentbean.lastPaymentDate"
+         :label="$t('To`lov sanasi')"
+         clearable
+         mask="YYYY-MM-DD"
+         class="q-pa-md col-xs-12 col-sm-6 col-md-6 col-lg-6"
+       />
+       <date-input2
+         v-model="addPeymentbean.nextPaymentDate"
+         :label="$t('Keyingi to`lov sanasi')"
+         clearable
+         mask="YYYY-MM-DD"
+         class="q-pa-md col-xs-12 col-sm-6 col-md-6 col-lg-6"
+       />
+     </div>
+   </standart-input-dialog>
  </div>
 </template>
 
@@ -108,10 +129,12 @@
 import StandartTable from "src/mixins/StandartTable";
 import {urls} from "src/utils/constants";
 import StandartInputDialog from "components/base/StandartInputDialog";
+import DateInput from "components/base/DateInput";
+import DateInput2 from "components/base/DateInput2";
 
 export default {
   name: "StudentsMiniCard",
-  components: {StandartInputDialog},
+  components: {DateInput2,StandartInputDialog},
   mixins:[StandartTable],
   props:{
     data:{
@@ -125,18 +148,28 @@ export default {
         groupsId:null,
       },
       formDialog:false,
+      addPaymentDialog:false,
       beanDefault:{
         id: null,
         studentsId:this.data[0].studentsId,
         groupsId:null,
       },
       bean:{},
+      addPeymentbeanDefault:{
+        id:null,
+        studentsId:this.data[0].studentsId,
+        groupsId:null,
+        lastPaymentDate:null,
+        nextPaymentDate:null
+      },
+      addPeymentbean:{},
       groups:[]
     }
   },
   watch:{
     data:function (val){
       this.$set(this.beanDefault , 'studentsId' ,this.data[0].studentsId )
+      this.$set(this.addPeymentbeanDefault , 'studentsId' ,this.data[0].studentsId )
     }
   },
   methods:{
@@ -158,6 +191,34 @@ export default {
         console.log(error)
       }).finally(()=>{})
     },
+    addPayment(item){
+      this.addPeymentbeanDefault.id = item.id
+      this.addPeymentbeanDefault.groupsId = item.groupsId
+      this.addPeymentbean = Object.assign({} , this.addPeymentbeanDefault);
+      this.addPaymentDialog = true
+    },
+    onAddPayment(){
+      this.$axios.post(urls.STUDENTS + '/add-payment', this.addPeymentbean).then(response => {
+        this.$emit('addGroup' , 1)
+        this.addPaymentDialog = false;
+        this.showInfo(this.$t('fp_captions.l_upload_successfully'));
+      }).catch(err => {
+        console.log("123=>",err)
+        this.showError(err);
+      })
+    },
+    removeStudent(row){
+      this.ask(this.$t('app_name'), this.$t('Siz haqiqatdan ham ushbu uquvchini guruhdan chiqarmoqchimisiz')+'?', () => {
+        this.$axios.delete(urls.STUDENTS + '/' + row.studentsId + '/' + row.id)
+          .then(response => {
+            this.$emit('addGroup' , 1)
+            this.showInfo(this.$t('fp_captions.l_upload_successfully'));
+          }).catch(error => {
+          this.showError(error);
+        }).finally(() => {
+        });
+      });
+    }
   },
   mounted() {
     this.getGroupsAll()

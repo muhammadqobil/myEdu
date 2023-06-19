@@ -64,10 +64,9 @@ export default ({app , store, router , Vue}) => {
         },
         showError(error) {
           console.log('----e:', error)
-          if (error.type == 'warning') {
+          if (error.type == 'error') {
             this.$q.notify({
-              caption: error.errorMessage + ' [' + error.errorCode + ']',
-              message: error.errorDescription,
+              caption: error.errorMessage ,
               icon: 'warning',
               color: 'negative'
             })

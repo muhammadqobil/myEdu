@@ -8,8 +8,8 @@
             <div class="text-weight-bold flex items-center" v-if="error.errorMessage">
               <q-icon size="sm" class="q-mr-md text-red-8" name="mdi-alert-box-outline"/>
               {{error.errorMessage}}</div>
-            <div class="q-mt-sm text-bold" v-if="error.errorDescription">{{$t("fp_captions.l_error_description")}} {{error.errorDescription}}</div>
-            <div class="q-mt-sm text-grey">{{$t("fp_captions.l_error_code")}} {{error.errorCode}}</div>
+<!--            <div class="q-mt-sm text-bold" v-if="error.errorDescription">{{$t("fp_captions.l_error_description")}} {{error.errorDescription}}</div>-->
+<!--            <div class="q-mt-sm text-grey">{{$t("fp_captions.l_error_code")}} {{error.errorCode}}</div>-->
           </div>
 
         </q-card-section>

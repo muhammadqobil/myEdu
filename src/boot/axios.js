@@ -54,9 +54,7 @@ export default ({app, router, store, Vue}) => {
       }
       return Promise.reject({
         type: 'error',
-        errorCode: error.response.data.ERROR.code,
-        errorDescription: error.response.data.ERROR.description,
-        errorMessage: error.response.data.ERROR.message
+        errorMessage: error.response.data.message
       });
 
     }
