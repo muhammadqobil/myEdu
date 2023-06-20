@@ -32,5 +32,9 @@ export function getUserCategories(state) {
     let deepCloneMC = JSON.parse(JSON.stringify(modulesCategories[key]));
     return deepCloneMC;
   });
-  return modulesCategoriesArr
+  if(state.user.roles[0].name === 'ROLE_SUPER_ADMIN' || state.user.roles[0].name === 'ROLE_ADMIN'){
+    return modulesCategoriesArr
+  }else {
+    return modulesCategoriesArr.splice(1,2)
+  }
 }

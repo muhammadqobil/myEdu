@@ -1,4 +1,5 @@
 import {branches} from "src/router/categories";
+import administration from "./categories/routes_administration";
 const routes = [
   {
     path: '/',
@@ -14,6 +15,7 @@ const routes = [
       {path: '/login', name: 'login', component: () => import('pages/LoginPage.vue')},
     ]
   },
+  administration,
   branches,
   // Always leave this as last one,
   // but you can also remove it
