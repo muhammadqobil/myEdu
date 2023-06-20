@@ -40,14 +40,37 @@
             stack-label
             transition-show="scale"
             transition-hide="scale"
-            class="col-xs-12 col-md-2 col-lg-3 q-pl-md"
+            class="col-xs-12 col-sm-3 col-md-3 col-lg-2 q-pl-md"
             dense>
             <template v-slot:append>
-              <q-icon name="close" @click.stop="filter.subjectsId = null"
+              <q-icon v-if="filter.subjectsId != null" name="close" @click.stop="filter.subjectsId = null"
                       class="cursor-pointer"/>
             </template>
             <template v-slot:selected-item="props">
               <div>{{ props.opt.name}}</div>
+            </template>
+
+          </q-select>
+          <q-select
+            v-model="filter.teachersId"
+            emit-value
+            outlined
+            map-options
+            :options="teachers"
+            option-value="id"
+            option-label="fio"
+            :label="$t('fp_captions.l_teachers')"
+            stack-label
+            transition-show="scale"
+            transition-hide="scale"
+            class="col-xs-12 col-sm-3 col-md-3 col-lg-2 q-pl-md"
+            dense>
+            <template v-slot:append>
+              <q-icon v-if="filter.teachersId != null" name="close" @click.stop="filter.teachersId = null"
+                      class="cursor-pointer"/>
+            </template>
+            <template v-slot:selected-item="props">
+              <div>{{ props.opt.fio}}</div>
             </template>
 
           </q-select>
@@ -448,6 +471,7 @@ export default {
     },
     getTeachersAll(){
       this.$axios.get(urls.TEACHERS).then(response=>{
+        console.log(response.data.content)
         this.teachers.splice(0,this.teachers.length , ...response.data.content)
       }).catch((error)=>{
         this.showError(error)

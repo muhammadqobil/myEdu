@@ -64,7 +64,13 @@ export default ({app , store, router , Vue}) => {
         },
         showError(error) {
           console.log('----e:', error)
-          if (error.type == 'error') {
+          if (error.type == 'warning') {
+            this.$q.notify({
+              caption: error.errorMessage ,
+              icon: 'warning',
+              color: 'negative'
+            })
+          }else if (error.type == 'error'){
             this.$q.notify({
               caption: error.errorMessage ,
               icon: 'warning',
@@ -237,6 +243,10 @@ export default ({app , store, router , Vue}) => {
             retval = " - "
           }
           return retval;
+        },
+        convertPhoneNumber(phoneNumber) {
+          let convertedNumber = phoneNumber.replace(/\D/g, '');
+          return convertedNumber;
         },
 
         datePickerOptions(date) {

@@ -28,6 +28,43 @@
       </template>
       <template v-slot:top="props">
         <div class="fit row items-center">
+          <q-select
+            v-model="filter.subjectsId"
+            emit-value
+            outlined
+            map-options
+            :options="subjects"
+            option-value="id"
+            option-label="name"
+            :label="$t('Fanlar')"
+            stack-label
+            transition-show="scale"
+            transition-hide="scale"
+            class="col-xs-12 col-sm-3 col-md-3 col-lg-2 q-pl-md"
+            dense>
+            <template v-slot:append>
+              <q-icon v-if="filter.subjectsId != null" name="close" @click.stop="filter.subjectsId = null"
+                      class="cursor-pointer"/>
+            </template>
+            <template v-slot:selected-item="props">
+              <div>{{ props.opt.name}}</div>
+            </template>
+
+          </q-select>
+          <q-input :value="filter.phone" :placeholder="('captions.l_phone')"
+                   :label="$t('captions.l_phone')"
+                   @change="e => {filter.phone = convertPhoneNumber(e.target.value)}"
+                   mask="(##) ### - ## - ##"
+                   fill-mask
+                   unmasked-value
+                   outlined
+                   class="q-pa-md col-xs-12 col-sm-3 col-md-3 col-lg-2" dense
+                   >
+            <template v-slot:append>
+              <q-icon v-if="filter.phone != null" name="close" @click.stop="filter.phone = null"
+                      class="cursor-pointer"/>
+            </template>
+          </q-input>
           <q-space/>
           <q-btn-group>
             <q-btn icon="add" class="bg-primary text-white" @click="rowAdd" dense>
@@ -213,6 +250,8 @@ export default {
       },
       filter:{
         forReception:1,
+        subjectsId:null,
+        phone:null
       },
       columns: [
         {
