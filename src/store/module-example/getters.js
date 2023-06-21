@@ -1,8 +1,12 @@
 import * as modulesCategories from '../../router/categories'
 export function getUser (state) {
-  alert(state.user)
   return state.user
 }
+
+export function getRole(state){
+  return state.user.roles[0].name
+}
+
 export function getToken (state) {
   return state.token
 }

@@ -87,8 +87,8 @@ const administration = {
   name: 'administration',
   component: () => import('layouts/BaseLayout.vue'),
   meta: {
-    title: 'Test uchun',
-    description: 'Test',
+    title: 'Boshqaruv',
+    description: 'Boshqaruv',
     icon: 'mdi-bank',
   },
   children: modules

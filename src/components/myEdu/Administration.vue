@@ -67,7 +67,7 @@
           </q-input>
           <q-space/>
           <q-btn-group>
-            <q-btn icon="add" class="bg-primary text-white" @click="rowAdd" dense>
+            <q-btn v-if="getRole()==='ROLE_SUPER_ADMIN'" icon="add" class="bg-primary text-white" @click="rowAdd" dense>
               <q-tooltip content-class="bg-primary">
                 {{$t('system.add')}}
               </q-tooltip>
@@ -138,17 +138,17 @@
       </template>
       <template v-slot:body-cell-actions="props">
         <q-td :props="props">
-          <q-btn size="sm" dense color="positive" icon="mdi-account-group-outline" @click.stop="addGroup(props.row)" class="q-mr-xs">
+          <q-btn v-if="getRole()=='ROLE_SUPER_ADMIN'" size="sm" dense color="positive" icon="mdi-account-group-outline" @click.stop="addGroup(props.row)" class="q-mr-xs">
             <q-tooltip content-class="bg-positive">
               {{$t('Guruhga biriktirish')}}
             </q-tooltip>
           </q-btn>
-          <q-btn size="sm" dense color="secondary" icon="mdi-pen" @click.stop="rowEdit(props.row)" class="q-mr-xs">
+          <q-btn v-if="getRole()=='ROLE_SUPER_ADMIN'" size="sm" dense color="secondary" icon="mdi-pen" @click.stop="rowEdit(props.row)" class="q-mr-xs">
             <q-tooltip content-class="bg-secondary">
               {{$t('system.edit')}}
             </q-tooltip>
           </q-btn>
-          <q-btn size="sm" dense color="negative" icon="mdi-delete-variant" @click.stop="rowDelete(props.row)" class="q-mr-sm">
+          <q-btn v-if="getRole()=='ROLE_SUPER_ADMIN'" size="sm" dense color="negative" icon="mdi-delete-variant" @click.stop="rowDelete(props.row)" class="q-mr-sm">
             <q-tooltip content-class="bg-negative">
               {{$t('system.delete')}}
             </q-tooltip>
@@ -302,7 +302,7 @@ export default {
     }
   },
   methods: {
-    ...mapGetters(['getUser']),
+    ...mapGetters(['getUser','getRole']),
     getSubjectAll(){
       this.$axios.get(urls.SUBJECTS + '/all' ).then(response=>{
         this.subjects.splice(0,this.subjects.length , ...response.data.content)

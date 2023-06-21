@@ -76,7 +76,7 @@
           </q-select>
           <q-space/>
           <q-btn-group>
-            <q-btn icon="add" class="bg-primary text-white" @click="rowAdd" dense>
+            <q-btn v-if="getRole()!=='ROLE_SUPER_ADMIN'" icon="add" class="bg-primary text-white" @click="rowAdd" dense>
               <q-tooltip content-class="bg-primary">
                 {{$t('system.add')}}
               </q-tooltip>
@@ -451,7 +451,7 @@ export default {
     }
   },
   methods: {
-    ...mapGetters(['getUser']),
+    ...mapGetters(['getUser','getRole']),
     getSubjectAll(){
       this.$axios.get(urls.SUBJECTS ).then(response=>{
         this.subjects.splice(0,this.subjects.length , ...response.data.content)
