@@ -9,6 +9,16 @@ const modules = [
       description: 'fp_captions.l_teachers',
     }
   },
+  {
+    path: 'attendance',
+    name: 'attendance',
+    component: () => import('pages/myEdu/PageAttendance.vue'),
+    meta: {
+      icon: 'mdi-account-group-outline',
+      title: 'Guruhlar',
+      description: 'fp_captions.l_teachers',
+    }
+  },
 ]
 
 const branches = {

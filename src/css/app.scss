@@ -1,5 +1,28 @@
 // app global css in SCSS form
+@font-face {
+  font-family: 'Lovelo-Black';
+  src: url(../assets/Lovelo/__MACOSX/Lovelo/Commercial/WEB/._Lovelo-Black.woff2);
+}
+@font-face {
+  font-family: 'Lovelo-LineBold';
+  src: url(../assets/Lovelo/__MACOSX/Lovelo/Commercial/WEB/._Lovelo-LineBold.eot);
+}
+@font-face {
+  font-family: 'Lovelo-LineBold';
+  src: url(../assets/Lovelo/Lovelo/Commercial/TTF/Lovelo-LineBold.ttf);
+}
 
+
+//Sass
+$Lovelo-Black: 'Lovelo-Black';
+$lovelo-LineLight: 'Lovelo-LineLight';
+$Lovelo-LineBold: 'Lovelo-LineBold';
+
+//Style
+* {
+  font-family: $Lovelo-Black;
+  box-sizing: border-box;
+}
 .my-edu-menu .q-scrollarea__content {
   width: 100%;
 }
@@ -36,7 +59,56 @@ table.q-table > tbody > tr.selected {
   right: 0;
   z-index: 1;
 }
-h1,h2,h3,h4,h5,h6{
-  padding: 0;
+.sticky-last-column-table td:last-child {
+  position: sticky;
+  right: 0;
+  z-index: 1;
+  background-color: #f5f5dc;
+}
+
+.sticky-last-column-table th:last-child {
+  position: sticky;
+  right: 0;
+  z-index: 3;
+  background-color: #f5f5dc;
+}
+blockquote,
+dl,
+dd,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+figure,
+p,
+pre {
   margin: 0;
+  padding: 0;
+}
+.scroll::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(163, 163, 163, 0.3);
+  background-color: #F5F5F5;
+}
+
+.scroll::-webkit-scrollbar {
+  width: 10px !important;
+  height: 10px !important;
+  background-color: #F5F5F5;
+}
+
+.scroll-area-users-info {
+  height: calc(100vh - 570px);
+}
+
+.scroll-area-jur-info {
+  height: calc(100vh - 435px);
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background-color: rgba($secondary, .3);
+  border-radius: 3px;
+  //border: 0.5px solid #555555;
 }

@@ -51,7 +51,7 @@
                     <span class="">
                     <span style="background: #b1d3f6; padding: 0 5px; border-radius: 3px">{{item.timeFrom}}</span>
                     <span class="q-mx-xs">-</span>
-                    <span style="background: #f6edb1; padding: 0 5px; border-radius: 3px">{{item.timeFrom}}</span>
+                    <span style="background: #f6edb1; padding: 0 5px; border-radius: 3px">{{item.timeTo}}</span>
                   </span>
                   </div>
                 </q-card-section>
