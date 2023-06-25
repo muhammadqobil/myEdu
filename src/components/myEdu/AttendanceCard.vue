@@ -35,53 +35,27 @@
             </div>
           </template>
           <template v-slot:body-cell-id="props">
-            <q-td :props="props" :style="'background:' + nvl(props.row.paymentColor)">
+            <q-td :props="props">
               {{props.row.id}}
             </q-td>
           </template>
           <template v-slot:body-cell-fio="props">
-            <q-td :props="props" :style="'background:' + nvl(props.row.paymentColor)">
+            <q-td :props="props">
               <div class="row">
                 <div class="col name-column">
-                  <span> {{$t('captions.l_fio')}} : </span>
-                  <span class="text-bold">
-                {{props.row.fio}}
-              </span>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col name-column">
-                  <span> {{$t('fp_captions.l_personal_phone_number')}} : </span>
-                  <span class="text-bold">
-                    {{phone_format(props.row.selfPhone)}}
-                  </span>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col name-column">
-                  <span> {{$t('fp_captions.l_home_phone_number')}} : </span>
-                  <span class="text-bold">
-                    {{phone_format(props.row.homePhone)}}
+                  <span class="text-subtitle1 text-subtitle1 text-grey-7">
+                    {{props.row.fio}}
                   </span>
                 </div>
               </div>
             </q-td>
           </template>
-          <template v-slot:body-cell-createdDate="props">
-            <q-td :props="props" :style="'background:' + nvl(props.row.paymentColor)">
+          <template v-slot:body-cell-selfPhone="props">
+            <q-td :props="props" >
               <div class="row">
                 <div class="col name-column">
-                  <span> {{$t('captions.l_created_date')}} : </span>
-                  <span class="text-bold">
-                    {{$dateutil.formatDate(props.row.createdDate ,'DD.MM.YYYY')}}
-                  </span>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col name-column">
-                  <span> {{$t('O\'quvchi holati')}} : </span>
-                  <span class="text-bold">
-                    <q-chip outline square color="positive" size="sm"><span class="text-subtitle2">{{props.row.studentStatusesName}}</span></q-chip>
+                  <span class="text-bold text-grey-7">
+                    {{phone_format(props.row.selfPhone)}}
                   </span>
                 </div>
               </div>
@@ -89,16 +63,8 @@
           </template>
           <template v-slot:body-cell-actions="props">
             <q-td :props="props">
-              <q-btn size="sm" dense color="secondary" icon="mdi-pen" @click.stop="rowEdit(props.row)" class="q-mr-xs">
-                <q-tooltip content-class="bg-secondary">
-                  {{$t('system.edit')}}
-                </q-tooltip>
-              </q-btn>
-              <q-btn size="sm" dense color="negative" icon="mdi-delete-variant" @click.stop="rowDelete(props.row)" class="q-mr-sm">
-                <q-tooltip content-class="bg-negative">
-                  {{$t('system.delete')}}
-                </q-tooltip>
-              </q-btn>
+              <q-checkbox size="xs" v-model="props.row.checked" @input="handleCheckbox(props.row)"
+                          :data-key="props.row.id" />
             </q-td>
           </template>
         </q-table>
@@ -161,7 +127,6 @@ export default {
   mixins: [StandartTable],
   props:{
     group_id:{
-      type:Number
     }
   },
   data() {
@@ -177,6 +142,7 @@ export default {
         rowsPerPage: 10,
         rowsNumber: 0
       },
+      shape: [] ,
       filter:{
         groupsId:this.group_id,
       },
@@ -192,15 +158,15 @@ export default {
         {
           name: 'fio',
           field: row => row.fio,
-          label: this.$t('O\'quvchi'),
+          label: this.$t('captions.l_fio'),
           format: val => `${val}`,
           align: 'left',
           classes: 'col-1',
         },
         {
-          name: 'createdDate',
-          field: row => row.createdDate,
-          label: this.$t('fp_captions.l_additional_information'),
+          name: 'selfPhone',
+          field: row => row.selfPhone,
+          label: this.$t('fp_captions.l_personal_phone_number'),
           format: val => `${val}`,
           align: 'left',
           classes: 'col-1',
@@ -232,9 +198,8 @@ export default {
       this.selectedRows.splice(0, this.selectedRows.length , val[0])
     },
     group_id:function (val){
-      alert('123 ' + this.group_id)
       this.filter.groupsId = this.group_id
-    }
+    },
   },
   methods: {
     ...mapGetters(['getUser']),
@@ -250,6 +215,24 @@ export default {
         return txt;
       return val;
     },
+    handleCheckbox(row) {
+      console.log(row)
+      // Bitta row dagi checkboxning qiymatini o'zgartirish
+      const rowId = row.id
+      const checkedStatus = row.fio
+
+      // Barcha checkboxlarni tekshirish
+      const allChecked = this.data.every(item => item.id === rowId ? checkedStatus : item.fio)
+      console.log('all=>', allChecked)
+      // Barcha checkboxlarga birinchi checkboxning qiymatini berish
+      this.data.forEach(item => {
+        if (item.id === rowId) {
+          item.fio = checkedStatus
+        } else {
+          item.fio = allChecked
+        }
+      })
+    }
   },
 
   mounted() {}

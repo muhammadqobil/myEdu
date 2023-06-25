@@ -35,9 +35,8 @@ export default {
       this.group_id = e.id;
     },
     refreshTab(val) {
-      alert(val)
       if (this.tab === '1') {
-        this.group_id = val.group_id;
+        this.group_id = val;
         this.tab = '2';
       } else {
         this.tab = '1'

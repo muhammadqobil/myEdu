@@ -69,11 +69,11 @@
               </q-input>
               <q-space/>
               <q-btn-group>
-                <q-btn icon="add" class="bg-primary text-white" @click="rowAdd" dense>
-                  <q-tooltip content-class="bg-primary">
-                    {{$t('system.add')}}
-                  </q-tooltip>
-                </q-btn>
+<!--                <q-btn icon="add" class="bg-primary text-white" @click="rowAdd" dense>-->
+<!--                  <q-tooltip content-class="bg-primary">-->
+<!--                    {{$t('system.add')}}-->
+<!--                  </q-tooltip>-->
+<!--                </q-btn>-->
                 <q-btn :loading="loading" size="md" dense color="primary" icon="mdi-reload" @click.stop="refreshTable(true)">
                   <q-tooltip content-class="bg-primary">
                     {{ $t('fp_captions.l_reload') }}
