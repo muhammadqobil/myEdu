@@ -63,7 +63,7 @@
           </template>
           <template v-slot:body-cell-actions="props">
             <q-td :props="props">
-              <q-checkbox size="xs" v-model="props.row.checked" @input="handleCheckbox(props.row)"
+              <q-checkbox size="xs" v-model="props.row.checked" :true-value="0" :false-value="1" @input="handleCheckbox(props.row)"
                           :data-key="props.row.id" />
             </q-td>
           </template>
@@ -216,20 +216,12 @@ export default {
       return val;
     },
     handleCheckbox(row) {
-      console.log(row)
-      // Bitta row dagi checkboxning qiymatini o'zgartirish
       const rowId = row.id
-      const checkedStatus = row.fio
+      const checkedStatus = 0
 
-      // Barcha checkboxlarni tekshirish
-      const allChecked = this.data.every(item => item.id === rowId ? checkedStatus : item.fio)
-      console.log('all=>', allChecked)
-      // Barcha checkboxlarga birinchi checkboxning qiymatini berish
       this.data.forEach(item => {
         if (item.id === rowId) {
-          item.fio = checkedStatus
-        } else {
-          item.fio = allChecked
+          item.checked === 1 ? item.checked = checkedStatus : item.checked = 1
         }
       })
     }
