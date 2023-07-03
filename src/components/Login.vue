@@ -26,17 +26,17 @@
       </q-form>
     </div>
     <div class="form-container sign-in-container">
-      <div class="full-width flex justify-end absolute" style="z-index: 100;">
-        <q-btn-toggle
-          v-model="language"
-          :options="languages"
-          toggle-color="primary"
-          dense
-          no-caps
-          flat
-          size="15px"
-        />
-      </div>
+<!--      <div class="full-width flex justify-end absolute" style="z-index: 100;">-->
+<!--        <q-btn-toggle-->
+<!--          v-model="language"-->
+<!--          :options="languages"-->
+<!--          toggle-color="primary"-->
+<!--          dense-->
+<!--          no-caps-->
+<!--          flat-->
+<!--          size="15px"-->
+<!--        />-->
+<!--      </div>-->
       <q-form @submit.prevent="onSubmit" class="q-gutter-md row">
         <h4 class="text-bold no-margin">Dasturga Kirish</h4>
         <q-input
@@ -89,7 +89,7 @@
         <q-btn class="button" type="submit" dense>Kirish</q-btn>
       </q-form>
     </div>
-    <div class="overlay-container">
+    <div class="overlay-container gt-sm">
       <div class="overlay">
         <div class="overlay-panel overlay-left">
           <h4 class="text-bold no-margin">Welcome Back!</h4>
@@ -98,6 +98,7 @@
           <q-btn class="button ghost" @click="signInButton">Sign UP</q-btn>
         </div>
         <div class="overlay-panel overlay-right">
+          <img width="200" height="200" src="../assets/logo/logo.png"/>
           <h4 class="text-bold no-margin">My Edu</h4>
           <p>O'quv markazi monitoringi uchun web platforma</p>
 <!--          <q-btn class="button ghost" @click="signUpButton">Sign In</q-btn>-->
@@ -361,7 +362,7 @@ input {
 
 .overlay-right {
   right: 0;
-  transform: translateX(0);
+  transform: translate(0 , -7%);
 }
 
 .container.right-panel-active .overlay-right {

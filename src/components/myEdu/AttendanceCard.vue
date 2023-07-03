@@ -30,8 +30,11 @@
           </template>
           <template v-slot:top="props">
             <div class="fit row items-center">
-              <q-btn class="q-mr-lg" align="center" outline size="sm" color="primary" icon="arrow_back_ios"
+              <q-btn align="center" outline size="sm" color="primary" icon="arrow_back_ios"
                      @click.stop="goAttendance" :label="$t('login.l_back')"/>
+              <q-space/>
+              <q-btn class="q-mr-lg" align="center" size="sm" color="primary"
+                     @click.stop="setAttendance" :label="$t('Saqlash')"/>
             </div>
           </template>
           <template v-slot:body-cell-id="props">
@@ -239,6 +242,16 @@ export default {
             })
           }
         }
+      })
+    },
+    setAttendance(){
+      this.loading = true;
+      this.$axios.post(urls.ATTENDANCES , this.attendance).then(response =>{
+          this.showInfo(this.$t('fp_captions.l_upload_successfully'))
+      }).catch(error =>{
+        this.showError(error)
+      }).finally(()=>{
+        this.loading = false
       })
     }
   },

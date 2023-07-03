@@ -6,8 +6,8 @@
           <q-btn dense flat round icon="menu" @click="leftDrawer = !leftDrawer"/>
 
           <q-toolbar-title class="text-subtitle1 logo-text-style  text-uppercase">
-            <q-avatar>
-              <q-icon name="mdi-file"/>
+            <q-avatar class="items-center justify-center">
+              <img src="../assets/logo/bg_logo.png"/>
             </q-avatar>
             <span>
             {{$t('app_name')}}

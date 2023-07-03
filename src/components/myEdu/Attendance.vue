@@ -243,7 +243,7 @@
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
         <div class="full-height bg-white">
-          <attendance-mini-card v-if="selectedRows && selectedRows[0]" @addGroup="this.refreshTable" :data="selectedRows[0].groupsDto"/>
+          <attendance-mini-card v-if="selectedRows && selectedRows[0]" @addGroup="this.refreshTable" :groupsId="selectedRows[0].id"/>
           <template v-else>
             <q-card class="fit no-shadow">
               <q-card-section class="full-width">
