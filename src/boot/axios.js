@@ -45,6 +45,7 @@ export default ({app, router, store, Vue}) => {
       if (error.response.status === 403) {
         store.commit('clearUserSession');
         router.push('/login');
+        store.commit("decrementAjaxRequestsCnt");
         return Promise.reject({
           type: 'warning',
           errorCode: error.response.data.ERROR.code,

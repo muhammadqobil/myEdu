@@ -63,7 +63,7 @@
           </template>
           <template v-slot:body-cell-actions="props">
             <q-td :props="props">
-              <q-checkbox size="xs" v-model="props.row.checked" :true-value="0" :false-value="1" @input="handleCheckbox(props.row)"
+              <q-checkbox size="xs" v-model="props.row.checked" :true-value="1" :false-value="0" @input="handleCheckbox(props.row)"
                           :data-key="props.row.id" />
             </q-td>
           </template>
@@ -118,13 +118,13 @@
 
 <script>
 import StandartInputDialog from "components/base/StandartInputDialog";
-import StandartTable from "src/mixins/StandartTable";
 import {urls} from "src/utils/constants";
 import {mapGetters} from "vuex";
+import StandartTable from "src/mixins/StandartTable";
 export default {
   name: "AttendanceCard",
   components: {StandartInputDialog},
-  mixins: [StandartTable],
+  mixins:[StandartTable],
   props:{
     group_id:{
     }
@@ -185,6 +185,7 @@ export default {
         studentsId:null,
         groupsId:null,
       },
+      attendance:[],
       subjects:[],
       groups:[],
       bean: {},
@@ -210,24 +211,41 @@ export default {
       this.tab = '1'
       this.$emit('goBack', val);
     },
-    nvl(txt, val) {
-      if (txt)
-        return txt;
-      return val;
+    getData(){
+      let allBean = Object.assign(this.pagination , this.filter);
+      this.$axios.get(this.apiUrl + this.tableFilterQuery(allBean)).then(response =>{
+        response.data.content.forEach(item =>{
+          this.attendance.push({groupsId:this.group_id ,studentsId:item.id , status:0})
+        })
+      }).catch(error =>{
+        this.showError(error)
+      }).finally(()=>{})
     },
     handleCheckbox(row) {
       const rowId = row.id
-      const checkedStatus = 0
-
       this.data.forEach(item => {
         if (item.id === rowId) {
-          item.checked === 1 ? item.checked = checkedStatus : item.checked = 1
+          if (item.checked == 0){
+            this.attendance.forEach((atten , index) => {
+              if(atten.studentsId == item.id){
+                atten.status = 0
+              }
+            })
+          }else {
+            this.attendance.forEach((atten , index) => {
+              if(atten.studentsId == item.id){
+                atten.status = 1
+              }
+            })
+          }
         }
       })
     }
   },
 
-  mounted() {}
+  mounted() {
+    this.getData()
+  }
 }
 </script>
 

@@ -236,16 +236,6 @@
                   {{$t('Davomat olish')}}
                 </q-tooltip>
               </q-btn>
-              <q-btn size="sm" dense color="secondary" icon="mdi-pen" @click.stop="rowEdit(props.row)" class="q-mr-xs">
-                <q-tooltip content-class="bg-secondary">
-                  {{$t('system.edit')}}
-                </q-tooltip>
-              </q-btn>
-              <q-btn size="sm" dense color="negative" icon="mdi-delete-variant" @click.stop="rowDelete(props.row)" class="q-mr-sm">
-                <q-tooltip content-class="bg-negative">
-                  {{$t('system.delete')}}
-                </q-tooltip>
-              </q-btn>
             </q-td>
           </template>
 
