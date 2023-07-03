@@ -43,13 +43,9 @@
 <script>
 import StandartTable from "src/mixins/StandartTable";
 import {urls} from "src/utils/constants";
-import StandartInputDialog from "components/base/StandartInputDialog";
-import DateInput from "components/base/DateInput";
-import DateInput2 from "components/base/DateInput2";
 
 export default {
   name: "AttendanceMiniCard",
-  components: {DateInput2,StandartInputDialog},
   mixins:[StandartTable],
   props:{
     groupsId:{
