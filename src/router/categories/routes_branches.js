@@ -14,8 +14,8 @@ const modules = [
     name: 'attendance',
     component: () => import('pages/myEdu/PageAttendance.vue'),
     meta: {
-      icon: 'mdi-account-group-outline',
-      title: 'Guruhlar',
+      icon: 'mdi-order-bool-ascending-variant',
+      title: 'Davomat',
       description: 'fp_captions.l_teachers',
     }
   },

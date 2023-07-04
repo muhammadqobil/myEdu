@@ -384,7 +384,7 @@ export default {
 
   data() {
     return {
-      apiUrl: urls.GROUPS,
+      apiUrl: urls.GROUPS + '/attendance',
       loading: false,
       rowKey: 'id',
       selectedRows: [],

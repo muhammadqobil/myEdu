@@ -20,12 +20,12 @@
              <q-list class="sublist object">
                <q-item class="q-pa-xs" >
                  <q-item-section avatar size="20px" class="q-pa-xs">
-                   <q-icon name="mdi-check-circle-outline" size="sm" color="primary"/>
+                   <q-icon :name="item.status == 1 ? 'mdi-checkbox-marked-outline' : 'mdi-checkbox-blank-outline'" size="sm" :color="item.color"/>
                  </q-item-section>
                  <q-item-section caption>
                    <q-item-label>
                      <div class="flex items-center">
-                       <div class="text-subtitle2">{{item.studentFio}}</div>
+                       <div class="text-subtitle1">{{item.studentFio}}</div>
                      </div>
                    </q-item-label>
                  </q-item-section>
