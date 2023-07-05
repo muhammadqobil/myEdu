@@ -14,6 +14,7 @@ export default {
     "l_groups": "Guruhlar",
     "l_room_info": "Xonalar ma'lumoti",
     "l_additional_information": "Qo'shimcha ma'lumot",
-    "l_not_selected": "Hech narsa tanlanmadi"
+    "l_not_selected": "Hech narsa tanlanmadi",
+    "l_upload_successfully": "Muvaffaqiyatli yuklandi"
   }
 };

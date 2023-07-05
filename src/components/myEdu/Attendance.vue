@@ -95,8 +95,14 @@
             </div>
           </template>
 
+          <template v-slot:body-cell-id="props">
+            <q-td :props="props" :style="'background:' + nvl(props.row.attendanceStatus)">
+              {{props.row.id}}
+            </q-td>
+          </template>
+
           <template v-slot:body-cell-groups="props">
-            <q-td :props="props">
+            <q-td :props="props" :style="'background:' + nvl(props.row.attendanceStatus)">
               <div class="row">
                 <div class="col name-column">
                   <span> {{$t('captions.l_name')}} : </span>
@@ -116,7 +122,7 @@
             </q-td>
           </template>
           <template v-slot:body-cell-teacherFio="props">
-            <q-td :props="props">
+            <q-td :props="props" :style="'background:' + nvl(props.row.attendanceStatus)">
               <div class="row">
                 <div class="col name-column">
                   <span> {{$t('captions.l_fio')}} : </span>
@@ -135,89 +141,9 @@
               </div>
             </q-td>
           </template>
-          <template v-slot:body-cell-teachers="props">
-            <q-td :props="props">
-              <div class="row">
-                <div class="col name-column">
-                  <span> {{$t('captions.l_fio')}} : </span>
-                  <span v-if="props.row.teachers" class="text-bold">
-                {{props.row.teachers.fio}}
-              </span>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col name-column">
-                  <span> {{$t('captions.l_phone')}} : </span>
-                  <span v-if="props.row.teachers" class="text-bold">
-                {{phone_format(props.row.teachers.phone)}}
-              </span>
-                </div>
-              </div>
-            </q-td>
-          </template>
-          <template v-slot:body-cell-roomName="props">
-            <q-td :props="props">
-              <div class="row">
-                <div class="col name-column">
-                  <span> {{$t('captions.l_name')}} : </span>
-                  <span v-if="props.row.roomName" class="text-bold">
-                {{props.row.roomNumber}} <span> - </span>{{props.row.roomName}}
-              </span>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col name-column">
-                  <span> {{$t('Hafta kunlari')}} : </span>
-                  <span v-if="props.row.weekDays" v-for="item in props.row.weekDays" class="text-bold">
-                {{item.shortName}}
-              </span>
-                </div>
-              </div>
-            </q-td>
-          </template>
-          <template v-slot:body-cell-rooms="props">
-            <q-td :props="props">
-              <div class="row">
-                <div class="col name-column">
-                  <span> {{$t('captions.l_name')}} : </span>
-                  <span v-if="props.row.rooms" class="text-bold">
-                {{props.row.rooms.number}} <span> - </span>{{props.row.roomName}}
-              </span>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col name-column">
-                  <span> {{$t('Hafta kunlari')}} : </span>
-                  <span v-if="props.row.weekDays" v-for="item in props.row.weekDays" class="text-bold">
-                {{item.shortName}}
-              </span>
-                </div>
-              </div>
-            </q-td>
-          </template>
-          <template v-slot:body-cell-createdDate="props">
-            <q-td :props="props">
-              <div class="row">
-                <div class="col name-column">
-                  <span>{{$t('captions.l_created_date_tx')}} : <q-icon name="mdi-calendar" size="xs" color="primary"/></span>
-                  <span class="text-bold">
-                {{$dateutil.formatDate(props.row.createdDate,'DD.MM.YYYY')}}
-              </span>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col name-column">
-                  <span> {{$t('captions.l_description')}} : </span>
-                  <span class="text-bold">
-                {{props.row.description}}
-              </span>
-                </div>
-              </div>
-            </q-td>
-          </template>
 
           <template v-slot:body-cell-timeFrom="props">
-            <q-td :props="props">
+            <q-td :props="props" :style="'background:' + nvl(props.row.attendanceStatus)">
               <div class="row">
                 <div class="col name-column">
                   <span><q-icon name="mdi-clock" size="xs" color="primary"/></span>
@@ -229,16 +155,103 @@
             </q-td>
           </template>
 
+          <template v-slot:body-cell-createdDate="props">
+            <q-td :props="props" :style="'background:' + nvl(props.row.attendanceStatus)">
+              <div class="row">
+                <div class="col name-column">
+                  <span>{{$t('captions.l_created_date_tx')}} : <q-icon name="mdi-calendar" size="xs" color="primary"/></span>
+                  <span class="text-bold">
+                {{$dateutil.formatDate(props.row.createdDate,'DD.MM.YYYY')}}
+              </span>
+                </div>
+              </div>
+            </q-td>
+          </template>
+
           <template v-slot:body-cell-actions="props">
             <q-td :props="props">
-              <q-btn size="sm" dense color="orange" icon="mdi-car-child-seat" @click.stop="goToCard(props.row.id)" class="q-mr-xs">
+              <q-btn v-if="props.row.attendanceStatus == 0" size="sm" dense color="orange" icon="mdi-car-child-seat" @click.stop="goToCard(props.row.id)" class="q-mr-xs">
                 <q-tooltip content-class="bg-orange">
                   {{$t('Davomat olish')}}
                 </q-tooltip>
               </q-btn>
             </q-td>
           </template>
+          <template v-slot:bottom="props">
+            <div class="full-width">
+              <div class="text-bold full-width flex items-center justify-between">
+                <div class="flex">
+                  <div v-for="(item , index) in [1,2]">
+                    <q-icon class="q-ml-md none-padding" size="sm" name="mdi-square"
+                            :style="index == 0 ? 'color: red' : 'color:green'"/>
+                    <span class="text-bold q-mt-md q-px-md text-primary">
+                   - {{index == 0 ? ' Davomat olinmagan': ' Davomat olingan' }}  </span>
+                  </div>
+                </div>
+                <div class="text-bold flex items-center">
+                 <span class="q-px-md">
+                    {{ $t('system.per_page_text') }}
+                 </span>
+                  <q-select
+                    v-model="pagination.rowsPerPage"
+                    :options="[5,7,10,15,25,50,100]"
+                    borderless
+                    dense
+                    @input="refreshTable"
+                  />
+                  <span>
+                     {{
+                      $t('system.pagination_text', [
+                        1 + (props.pagination.page - 1) * props.pagination.rowsPerPage,
+                        props.pagination.rowsPerPage * props.pagination.page < props.pagination.rowsNumber ? props.pagination.rowsPerPage * props.pagination.page : props.pagination.rowsNumber,
+                        props.pagination.rowsNumber])
+                    }}
+                  </span>
+                  <q-btn
+                    v-if="props.pagesNumber > 2"
+                    icon="first_page"
+                    color="primary"
+                    round
+                    dense
+                    flat
+                    :disable="props.isFirstPage"
+                    @click="props.firstPage"
+                  />
 
+                  <q-btn
+                    icon="chevron_left"
+                    color="primary"
+                    round
+                    dense
+                    flat
+                    :disable="props.isFirstPage"
+                    @click="props.prevPage"
+                  />
+
+                  <q-btn
+                    icon="chevron_right"
+                    color="primary"
+                    round
+                    dense
+                    flat
+                    :disable="props.isLastPage"
+                    @click="props.nextPage"
+                  />
+
+                  <q-btn
+                    v-if="props.pagesNumber > 2"
+                    icon="last_page"
+                    color="primary"
+                    round
+                    dense
+                    flat
+                    :disable="props.isLastPage"
+                    @click="props.lastPage"
+                  />
+                </div>
+              </div>
+            </div>
+          </template>
         </q-table>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
@@ -257,116 +270,6 @@
         </div>
       </div>
     </div>
-    <!--DIALOG-->
-    <standart-input-dialog v-model="formDialog" :model-id="bean.id" :on-submit="onSubmit"
-                           :on-validation-error="onValidationError">
-
-      <div class="row">
-        <q-input v-model="bean.name" :placeholder="$t('captions.l_name')"
-                 :label="$t('captions.l_name')"
-                 class="q-pa-md col-xs-12 col-sm-12 col-md-12 col-lg-12" dense
-                 lazy-rules :rules="[val => !!val || this.$t('system.field_is_required')]">
-        </q-input>
-
-        <div class="row col-xs-12 col-sm-12 full-widths">
-
-          <q-select
-            v-model="bean.teachersId"
-            emit-value
-            map-options
-            :options="teachers"
-            option-value="id"
-            option-label="fio"
-            :label="$t('fp_captions.l_teachers')"
-            transition-show="scale"
-            transition-hide="scale"
-            class="q-pa-md col-xs-12 col-md-6 col-lg-6" dense
-          >
-            <template v-slot:selected-item="props">
-              <div>{{props.opt.fio}}</div>
-            </template>
-          </q-select>
-          <q-select
-            v-model="bean.subjectsId"
-            emit-value
-            map-options
-            :options="subjects"
-            option-value="id"
-            option-label="name"
-            :label="$t(`fp_captions.l_subjects`)"
-            transition-show="scale"
-            transition-hide="scale"
-            class="q-pa-md col-xs-12 col-md-6 col-lg-6" dense
-          >
-            <template v-slot:selected-item="props">
-              <div>{{props.opt.name}}</div>
-            </template>
-          </q-select>
-
-          <q-select
-            v-model="bean.roomsId"
-            emit-value
-            map-options
-            :options="rooms"
-            option-value="id"
-            option-label="name"
-            :label="$t('fp_captions.l_rooms')"
-            transition-show="scale"
-            transition-hide="scale"
-            class="q-pa-md col-xs-12 col-md-6 col-lg-6" dense
-          >
-            <template v-slot:selected-item="props">
-              <div>{{props.opt.name}}</div>
-            </template>
-          </q-select>
-
-          <q-select
-            v-model="bean.weekDays"
-            map-options
-            :options="weekDays"
-            option-value="id"
-            option-label="name"
-            max-values="3"
-            multiple
-            clearable
-            :label="$t('fp_captions.l_weekdays')"
-            transition-show="scale"
-            transition-hide="scale"
-            class="q-pa-md col-xs-12 col-md-6 col-lg-6" dense
-            style="text-indent: 12px;"
-
-          >
-            <template v-slot:selected-item="props">
-              <div>{{props.opt.name}}</div>
-            </template>
-          </q-select>
-          <div class=" q-pl-md text-subtitle2 full-width">
-            Darsga kirish vaqti
-          </div>
-          <q-input v-model="bean.timeFrom" :placeholder="$t('captions.l_from_date')"
-            :label="$t('captions.l_from_date')"
-            mask="## : ##"
-            fill-mask
-            class="q-pa-md col-xs-12 col-sm-12 col-md-6 col-lg-6" dense
-            lazy-rules :rules="[val => !!val || this.$t('system.field_is_required')]">
-        </q-input>
-        <q-input v-model="bean.timeTo" :placeholder="$t('captions.l_to_date')"
-           :label="$t('captions.l_to_date')"
-           mask="## : ##"
-           fill-mask
-           class="q-pa-md col-xs-12 col-sm-12 col-md-6 col-lg-6" dense
-           lazy-rules :rules="[val => !!val || this.$t('system.field_is_required')]">
-        </q-input>
-
-          <q-input v-model="bean.description" :placeholder="$t('captions.l_description')"
-                   :label="$t('captions.l_description')"
-                   class="q-pa-md col-xs-12 col-sm-12 col-md-12 col-lg-12" dense
-                    >
-          </q-input>
-        </div>
-      </div>
-
-    </standart-input-dialog>
   </div>
 </template>
 
@@ -379,12 +282,12 @@ import AttendanceMiniCard from "components/myEdu/AttendanceMiniCard";
 
 export default {
   name: "Attendance",
-  components: {AttendanceMiniCard, StandartInputDialog},
+  components: {AttendanceMiniCard},
   mixins: [StandartTable],
 
   data() {
     return {
-      apiUrl: urls.GROUPS + '/attendance',
+      apiUrl: urls.GROUPS_ATTENDANCE,
       loading: false,
       rowKey: 'id',
       selectedRows: [],
@@ -425,13 +328,6 @@ export default {
           classes: 'col-1',
         },
         {
-          name: 'roomName',
-          field: row => row.roomName,
-          label: this.$t('fp_captions.l_room_info'),
-          align: 'left',
-          classes: 'col-1',
-        },
-        {
           name: 'timeFrom',
           field: row => row.timeFrom,
           label: this.$t('Dars vaqtlari'),
@@ -466,6 +362,15 @@ export default {
       weekDays: []
     }
   },
+  computed:{
+    nvl(status) {
+      return item =>{
+        if (item == 1)
+          return '#caf7ca';
+        return '#f7c1c1';
+      }
+    },
+  },
   methods: {
     ...mapGetters(['getUser','getRole']),
     getSubjectAll(){
@@ -494,14 +399,6 @@ export default {
         console.log(error)
       }).finally(()=>{})
     },
-    getWeekDaysAll(){
-      this.$axios.get(urls.WEEK_DAYS).then(response=>{
-        this.weekDays.splice(0,this.weekDays.length , ...response.data.content)
-      }).catch((error)=>{
-        this.showError(error)
-        console.log(error)
-      }).finally(()=>{})
-    },
     goToCard(group_id) {
       this.$emit('toAttendanceCard', group_id)
     },
@@ -511,7 +408,6 @@ export default {
     this.getSubjectAll()
     this.getRoomsAll()
     this.getTeachersAll()
-    this.getWeekDaysAll()
   }
 }
 </script>

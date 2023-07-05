@@ -2,32 +2,32 @@
   <div class="q-pa-md full-width full-height">
     <section class="statis text-center " style="color: #F3F4F6">
       <div class="row">
-        <div class="col-md-6 col-lg-3 q-mb-sm q-px-sm">
+        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 q-mb-sm q-px-sm">
           <div class="box bg-primary q-pa-lg">
-            <i class="fas fa-graduation-cap"></i>
-            <h3 style="">5,154</h3>
-            <p class="lead">Page views</p>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-3 q-mb-sm q-px-sm">
-          <div class="box bg-warning q-pa-lg">
             <i class="fas fa-chalkboard-teacher"></i>
-            <h3>5,154</h3>
-            <p class="lead">Product sales</p>
+            <h3 style=""><standart-int-animation :value="allTeachersCnt"/></h3>
+            <p class="lead">O'qituvchilar soni</p>
           </div>
         </div>
-        <div class="col-md-6 col-lg-3 q-mb-sm q-px-sm">
+        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 q-mb-sm q-px-sm">
+          <div class="box bg-warning q-pa-lg">
+            <i class="fas fa-people-group"></i>
+            <h3><standart-int-animation :value="allGroupsCnt"/></h3>
+            <p class="lead">Guruhlar soni</p>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 q-mb-sm q-px-sm">
           <div class="box bg-success q-pa-lg">
             <i class="fas fa-graduation-cap"></i>
-            <h3>5,154</h3>
-            <p class="lead">Transactions</p>
+            <h3><standart-int-animation :value="allStudentsCnt"/></h3>
+            <p class="lead">O'quvchilar soni</p>
           </div>
         </div>
-        <div class="col-md-6 col-lg-3 q-mb-sm q-px-sm">
+        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 q-mb-sm q-px-sm">
           <div class="box bg-danger q-pa-lg">
             <i class="fas fa-money-bill-wave"></i>
-            <h3>245</h3>
-            <p class="lead">User registered</p>
+            <h3><standart-int-animation :value="allNotPaidCnt"/></h3>
+            <p class="lead">To'lov qilinmagan</p>
           </div>
         </div>
       </div>
@@ -92,7 +92,10 @@ export default {
   data(){
     return {
       list_classes_today_arr:[],
-      test:0
+      allTeachersCnt: 0,
+      allStudentsCnt: 0,
+      allGroupsCnt: 0,
+      allNotPaidCnt: 0,
     }
   },
   methods:{
@@ -111,11 +114,24 @@ export default {
       }).catch(error => {
         this.showError(error)
       }).finally(() => {})
+    },
+    getDashboard(){
+      this.$axios.get(urls.DASHBOARD + '/headers').then(response => {
+        response.data.content.forEach(item => {
+          this.allTeachersCnt = item.allTeachersCnt;
+          this.allStudentsCnt = item.allStudentsCnt;
+          this.allGroupsCnt = item.allGroupsCnt;
+          this.allNotPaidCnt = item.allNotPaidCnt;
+        })
+      }).catch(error => {
+        this.showError(error)
+      }).finally(() => {})
     }
   },
   mounted() {
     this.getTest();
     this.listClassesTodey()
+    this.getDashboard()
   }
 }
 </script>

@@ -18,6 +18,8 @@ export const urls = {
   TEACHERS: "/admin/teachers",
   WEEK_DAYS: "/admin/weekdays",
   GROUPS: "/admin/groups",
+  GROUPS_ATTENDANCE: "/admin/groups/attendance",
   STUDENTS: "/admin/students",
   ATTENDANCES: "/admin/attendances",
+  DASHBOARD: "/dashboard",
 }

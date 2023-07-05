@@ -248,6 +248,7 @@ export default {
       this.loading = true;
       this.$axios.post(urls.ATTENDANCES , this.attendance).then(response =>{
           this.showInfo(this.$t('fp_captions.l_upload_successfully'))
+          this.goAttendance()
       }).catch(error =>{
         this.showError(error)
       }).finally(()=>{

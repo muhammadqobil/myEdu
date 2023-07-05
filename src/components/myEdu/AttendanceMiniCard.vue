@@ -76,6 +76,7 @@ export default {
   watch:{
     groupsId:function (val){
       this.filter.groupsId = this.groupsId
+      this.refreshTable()
     }
   },
   methods:{
