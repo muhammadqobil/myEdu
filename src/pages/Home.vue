@@ -1,33 +1,33 @@
 <template>
   <div class="q-pa-md full-width full-height">
-    <section class="statis mt-4 text-center">
+    <section class="statis text-center " style="color: #F3F4F6">
       <div class="row">
-        <div class="col-md-6 col-lg-3">
-          <div class="box bg-primary p-3">
-            <i class="fa fa-user-graduate" style="color: #ffffff;"></i>
-            <h3>5,154</h3>
+        <div class="col-md-6 col-lg-3 q-mb-sm q-px-sm">
+          <div class="box bg-primary q-pa-lg">
+            <i class="fas fa-graduation-cap"></i>
+            <h3 style="">5,154</h3>
             <p class="lead">Page views</p>
           </div>
         </div>
-        <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
-          <div class="box bg-danger p-3">
-            <i class="uil-user"></i>
-            <h3>245</h3>
-            <p class="lead">User registered</p>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-3 mb-4 mb-md-0">
-          <div class="box bg-warning p-3">
-            <i class="uil-shopping-cart"></i>
+        <div class="col-md-6 col-lg-3 q-mb-sm q-px-sm">
+          <div class="box bg-warning q-pa-lg">
+            <i class="fas fa-chalkboard-teacher"></i>
             <h3>5,154</h3>
             <p class="lead">Product sales</p>
           </div>
         </div>
-        <div class="col-md-6 col-lg-3">
-          <div class="box bg-success p-3">
-            <i class="uil-feedback"></i>
+        <div class="col-md-6 col-lg-3 q-mb-sm q-px-sm">
+          <div class="box bg-success q-pa-lg">
+            <i class="fas fa-graduation-cap"></i>
             <h3>5,154</h3>
             <p class="lead">Transactions</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3 q-mb-sm q-px-sm">
+          <div class="box bg-danger q-pa-lg">
+            <i class="fas fa-money-bill-wave"></i>
+            <h3>245</h3>
+            <p class="lead">User registered</p>
           </div>
         </div>
       </div>
@@ -173,5 +173,9 @@ export default {
   line-height: 60px;
   text-align: right;
   border-radius: 50%;
+}
+.lead {
+  font-size: 1.25rem;
+  font-weight: 300;
 }
 </style>
