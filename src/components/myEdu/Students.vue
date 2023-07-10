@@ -53,6 +53,31 @@
                 </template>
 
               </q-select>
+
+              <q-select
+                v-model="filter.donePayment"
+                emit-value
+                outlined
+                map-options
+                :options="paymentStatuses"
+                option-value="id"
+                option-label="name"
+                :label="$t('To\'lov holati')"
+                stack-label
+                transition-show="scale"
+                transition-hide="scale"
+                class="col-xs-12 col-sm-3 col-md-3 col-lg-3 q-pl-md"
+                dense>
+                <template v-slot:append>
+                  <q-icon v-if="filter.donePayment != null" name="close" @click.stop="filter.donePayment = null"
+                          class="cursor-pointer"/>
+                </template>
+                <template v-slot:selected-item="props">
+                  <div>{{ props.opt.name}}</div>
+                </template>
+
+              </q-select>
+
               <q-input :value="filter.phone" :placeholder="('captions.l_phone')"
                        :label="$t('captions.l_phone')"
                        @change="e => {filter.phone = convertPhoneNumber(e.target.value)}"
@@ -240,8 +265,19 @@ export default {
       },
       filter:{
         groupsId:null,
-        phone:null
+        phone:null,
+        donePayment:null,
       },
+      paymentStatuses:[
+        {
+          id:0,
+          name:'To\'lov qilingan'
+        },
+        {
+          id:1,
+          name:'To\'lov qilinmagan'
+        }
+      ],
       columns: [
         {
           name: 'id',
