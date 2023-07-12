@@ -22,4 +22,5 @@ export const urls = {
   STUDENTS: "/admin/students",
   ATTENDANCES: "/admin/attendances",
   DASHBOARD: "/dashboard",
+  ATTENDANCE_REPORTS: "/admin/attendance_reports",
 }

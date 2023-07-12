@@ -1,4 +1,4 @@
-import {branches} from "src/router/categories";
+import {branches , report} from "src/router/categories";
 import administration from "./categories/routes_administration";
 const routes = [
   {
@@ -17,6 +17,7 @@ const routes = [
   },
   administration,
   branches,
+  report,
   // Always leave this as last one,
   // but you can also remove it
   {

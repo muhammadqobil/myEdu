@@ -30,52 +30,55 @@
           </template>
           <template v-slot:top="props">
             <div class="fit row items-center">
-              <q-select
-                v-model="filter.subjectsId"
-                emit-value
-                outlined
-                map-options
-                :options="subjects"
-                option-value="id"
-                option-label="name"
-                :label="$t('Fanlar')"
-                stack-label
-                transition-show="scale"
-                transition-hide="scale"
-                class="col-xs-12 col-sm-3 col-md-3 col-lg-2 q-pl-md"
-                dense>
-                <template v-slot:append>
-                  <q-icon v-if="filter.subjectsId != null" name="close" @click.stop="filter.subjectsId = null"
-                          class="cursor-pointer"/>
-                </template>
-                <template v-slot:selected-item="props">
-                  <div>{{ props.opt.name}}</div>
-                </template>
+              <template v-if="getRole() === 'ROLE_SUPER_ADMIN'">
+                {{getRole()}}
+                <q-select
+                  v-model="filter.subjectsId"
+                  emit-value
+                  outlined
+                  map-options
+                  :options="subjects"
+                  option-value="id"
+                  option-label="name"
+                  :label="$t('Fanlar')"
+                  stack-label
+                  transition-show="scale"
+                  transition-hide="scale"
+                  class="col-xs-12 col-sm-3 col-md-3 col-lg-2 q-pl-md"
+                  dense>
+                  <template v-slot:append>
+                    <q-icon v-if="filter.subjectsId != null" name="close" @click.stop="filter.subjectsId = null"
+                            class="cursor-pointer"/>
+                  </template>
+                  <template v-slot:selected-item="props">
+                    <div>{{ props.opt.name}}</div>
+                  </template>
 
-              </q-select>
-              <q-select
-                v-model="filter.teachersId"
-                emit-value
-                outlined
-                map-options
-                :options="teachers"
-                option-value="id"
-                option-label="fio"
-                :label="$t('fp_captions.l_teachers')"
-                stack-label
-                transition-show="scale"
-                transition-hide="scale"
-                class="col-xs-12 col-sm-3 col-md-3 col-lg-2 q-pl-md"
-                dense>
-                <template v-slot:append>
-                  <q-icon v-if="filter.teachersId != null" name="close" @click.stop="filter.teachersId = null"
-                          class="cursor-pointer"/>
-                </template>
-                <template v-slot:selected-item="props">
-                  <div>{{ props.opt.fio}}</div>
-                </template>
+                </q-select>
+                <q-select
+                  v-model="filter.teachersId"
+                  emit-value
+                  outlined
+                  map-options
+                  :options="teachers"
+                  option-value="id"
+                  option-label="fio"
+                  :label="$t('fp_captions.l_teachers')"
+                  stack-label
+                  transition-show="scale"
+                  transition-hide="scale"
+                  class="col-xs-12 col-sm-3 col-md-3 col-lg-2 q-pl-md"
+                  dense>
+                  <template v-slot:append>
+                    <q-icon v-if="filter.teachersId != null" name="close" @click.stop="filter.teachersId = null"
+                            class="cursor-pointer"/>
+                  </template>
+                  <template v-slot:selected-item="props">
+                    <div>{{ props.opt.fio}}</div>
+                  </template>
 
-              </q-select>
+                </q-select>
+              </template>
               <q-space/>
               <q-btn-group>
                 <q-btn v-if="getRole()!=='ROLE_SUPER_ADMIN'" icon="add" class="bg-primary text-white" @click="rowAdd" dense>
@@ -405,9 +408,11 @@ export default {
   },
 
   mounted() {
-    this.getSubjectAll()
-    this.getRoomsAll()
-    this.getTeachersAll()
+    if (this.getRule() === 'ROLE_SUPER_ADMIN'){
+      this.getSubjectAll()
+      this.getRoomsAll()
+      this.getTeachersAll()
+    }
   }
 }
 </script>

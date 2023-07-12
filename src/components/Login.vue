@@ -89,7 +89,7 @@
         <q-btn class="button" type="submit" dense>Kirish</q-btn>
       </q-form>
     </div>
-    <div class="overlay-container gt-sm">
+    <div class="overlay-container">
       <div class="overlay">
         <div class="overlay-panel overlay-left">
           <h4 class="text-bold no-margin">Welcome Back!</h4>
@@ -367,6 +367,22 @@ input {
 
 .container.right-panel-active .overlay-right {
   transform: translateX(20%);
+}
+@media screen and (max-width: 900px){
+  .container{
+    width: 450px;
+  }
+  .sign-in-container{
+    width: 100%;
+  }
+  .overlay-container{
+    display: none;
+  }
+}
+@media screen and (max-width: 500px){
+  .container{
+    width: 400px;
+  }
 }
 
 </style>

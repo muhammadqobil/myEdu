@@ -81,6 +81,15 @@ table.q-table > tbody > tr.selected {
   z-index: 3;
   background-color: #f5f5dc;
 }
+.table-row-bg-style tr:nth-child(even){
+  background-color: rgba(236, 239, 241, 0.42);
+}
+.table-row-bg-style tr th {
+  font-size: 14px;
+}
+.table-row-bg-style tr td {
+  font-size: 14px;
+}
 blockquote,
 dl,
 dd,

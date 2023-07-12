@@ -14,37 +14,35 @@
         <span class="text-grey-7 text-bold text-subtitle1 q-ml-md">{{ $t('system.l_no_results') }}</span>
       </div>
       <div class="full-width" v-else>
-        <q-card class="no-shadow q-ma-sm" bordered>
+        <q-card class="no-shadow q-ma-sm">
           <q-card-section class="no-padding">
-            <div class="full-width" v-for="item in data">
-              <q-card bordered class="shadow-1 full-width q-my-sm">
-                <q-card-section>
-                  <span class="text-h6">{{item.name}}</span>
-                  <div class="text-subtitle2 flex justify-between">
-                    <span class="text-grey-7">O'qituvchi:</span>
-                    <span class="">{{item.teacherFio}}</span>
-                  </div>
-                </q-card-section>
-                <q-separator inset />
-                <q-card-section>
-                  <div class="text-subtitle2 flex justify-between">
-                    <span class="text-grey-7">Xona:</span>
-                    <span>
-                    {{item.roomName}}
-                    <q-chip outline square color="grey-7" size="12px">{{item.roomNumber}}</q-chip>
-                  </span>
-                  </div>
-                  <div class="text-subtitle2 flex justify-between">
-                    <span class="text-grey-7">Vaqti:</span>
-                    <span class="">
+            <q-scroll-area style="height: calc(100vh - 255px);">
+              <div class="full-width" v-for="item in data">
+                <q-card bordered class="shadow-1 full-width q-my-sm">
+                  <q-card-section>
+                    <div class="flex justify-between items-center">
+                      <span>{{item.daysName}}</span>
+                      <span class="text-h6">{{item.name}}</span>
+                    </div>
+                    <div class="text-subtitle2 flex justify-between">
+                      <span class="text-grey-7">O'qituvchi:</span>
+                      <span class="">{{item.teacherFio}}</span>
+                    </div>
+                  </q-card-section>
+                  <q-separator inset />
+                  <q-card-section>
+                    <div class="text-subtitle2 flex justify-between">
+                      <span class="text-grey-7">Vaqti:</span>
+                      <span class="">
                     <span style="background: #b1d3f6; padding: 0 5px; border-radius: 3px">{{item.timeFrom}}</span>
                     <span class="q-mx-xs">-</span>
                     <span style="background: #f6edb1; padding: 0 5px; border-radius: 3px">{{item.timeTo}}</span>
                   </span>
-                  </div>
-                </q-card-section>
-              </q-card>
-            </div>
+                    </div>
+                  </q-card-section>
+                </q-card>
+              </div>
+            </q-scroll-area>
           </q-card-section>
         </q-card>
       </div>
@@ -58,7 +56,7 @@ import {urls} from "src/utils/constants";
 export default {
   name: "RoomsMiniCard",
   props:{
-    roomsId:{
+    roomsId : {
       type:Number,
     }
   },
@@ -79,7 +77,7 @@ export default {
   },
   watch:{
     roomsId : function (val){
-      this.roomsId = this.roomsId;
+      this.filter.roomsId = this.roomsId;
       this.getData();
     }
   },
